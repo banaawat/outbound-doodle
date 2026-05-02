@@ -77,15 +77,15 @@ function Home() {
           <span className="sticker sticker-white absolute -top-4 -left-3 z-10" style={{ transform: "rotate(-6deg)" }}>
             📧 real reply
           </span>
-          <div className="overflow-hidden rounded-md border-2 border-dashed border-foreground/70 bg-white" style={{ height: "200px" }}>
+          <div className="overflow-hidden rounded-md border-2 border-dashed border-foreground/70 bg-white">
             <img
               src={emailReply}
               alt="Cold email reply: appreciate your constant follow-up with relevant insights, not sure to address you as a real person or an AI bot. Let me know when we can e-meet next week."
-              className="w-full h-auto block"
-              style={{ objectFit: "cover", objectPosition: "center bottom", minHeight: "100%" }}
+              className="w-full block"
+              style={{ objectFit: "cover", objectPosition: "center bottom", aspectRatio: "1500 / 220" }}
             />
           </div>
-          <p className="mt-4 text-base font-medium">— Alamar Foods (Domino's)</p>
+          <p className="mt-4 text-base font-medium">— Domino's UAE</p>
         </div>
       </section>
 
