@@ -17,7 +17,7 @@ const RESOURCES = [
   { cat: "Template", title: "The 3-Line Cold Email Formula", desc: "The exact structure I use to get 7% reply rates. Subject line + opener + CTA. Copy it.", cta: "Copy the Template →" },
   { cat: "Framework", title: "ICP Definition Worksheet", desc: "12 questions that force you to get specific about who you're actually selling to. Fill this before you touch Apollo.", cta: "Download PDF →" },
   { cat: "Tool", title: "TAM Mapping Spreadsheet", desc: "The exact Google Sheet I use to segment, tier, and prioritise accounts before any campaign.", cta: "Get the Sheet →" },
-  { cat: "Breakdown", title: "Cold Email Teardown: What Makes Bilal Reply", desc: "A line-by-line breakdown of the sequence that got a Director of Consumer Insights to loop in their team and ask for a deck.", cta: "Read the Breakdown →" },
+  { cat: "Breakdown", title: "Cold Email Teardown: The Reply That Booked Domino's", desc: "A line-by-line breakdown of the sequence that got a F&B leadership team to loop in their director and ask for a deck.", cta: "Read the Breakdown →" },
   { cat: "Guide", title: "The Outbound Stack for Zero Budget", desc: "Apollo free tier + Clay credits + Claude + a secondary Gmail domain. How to run real outbound before you have a budget.", cta: "Read the Guide →" },
   { cat: "Template", title: "Follow-Up Sequence Template (5 Touches)", desc: "The exact follow-up cadence — timing, tone, and what to say when they ghost you.", cta: "Copy the Template →" },
 ];

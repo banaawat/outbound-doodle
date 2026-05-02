@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Logos } from "@/components/Logos";
+import emailReply from "@/assets/email-reply.png";
 
 export const Route = createFileRoute("/proof")({
   head: () => ({
@@ -32,24 +33,28 @@ function Proof() {
 
       {/* EMAIL CARD */}
       <section className="max-w-3xl mx-auto px-5 sm:px-8 pb-20">
-        <div className="doodle-card p-0 overflow-hidden" style={{ transform: "rotate(-0.6deg)" }}>
-          <div className="bg-muted/60 px-5 py-3 border-b-2 border-dashed border-foreground/70 flex items-center gap-2 text-sm">
+        <div className="doodle-card p-4 sm:p-5 relative" style={{ transform: "rotate(-0.6deg)" }}>
+          <span className="sticker sticker-orange absolute -top-4 right-6 z-10" style={{ transform: "rotate(4deg)" }}>
+            Day 3 of sequence 🎯
+          </span>
+          <span className="sticker sticker-white absolute -top-4 -left-3 z-10" style={{ transform: "rotate(-5deg)" }}>
+            📧 real reply
+          </span>
+          <div className="bg-muted/60 px-5 py-3 border-2 border-dashed border-foreground/70 border-b-0 flex items-center gap-2 text-sm rounded-t-md">
             <span className="w-3 h-3 rounded-full bg-secondary inline-block" />
             <span className="w-3 h-3 rounded-full bg-accent inline-block" />
             <span className="w-3 h-3 rounded-full bg-primary inline-block" />
             <span className="ml-3 font-medium">Re: Your last email</span>
           </div>
-          <div className="p-7 sm:p-10 relative">
-            <span className="sticker sticker-orange absolute -top-4 right-6" style={{ transform: "rotate(4deg)" }}>
-              Day 3 of sequence 🎯
-            </span>
-            <p className="text-sm text-muted-foreground mb-3">From: Bilal Qureshi · Consumer Insights Director</p>
-            <p className="font-display text-3xl sm:text-4xl leading-snug">
-              "Appreciate your constant follow-up with relevant insights — hence{" "}
-              <span className="highlight">not sure to address you as a real person or an AI bot</span> 😉
-              Let me know when we can e-meet next week."
-            </p>
+          <div className="overflow-hidden border-2 border-dashed border-foreground/70 bg-white rounded-b-md" style={{ height: "220px" }}>
+            <img
+              src={emailReply}
+              alt="Cold email reply: appreciate your constant follow-up with relevant insights, not sure to address you as a real person or an AI bot. Let me know when we can e-meet next week."
+              className="w-full h-auto block"
+              style={{ objectFit: "cover", objectPosition: "center bottom", minHeight: "100%" }}
+            />
           </div>
+          <p className="mt-4 text-base font-medium">— Alamar Foods (Domino's)</p>
         </div>
       </section>
 
