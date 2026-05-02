@@ -1,0 +1,114 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { PageShell } from "@/components/PageShell";
+
+export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      { title: "Contact — Let's talk pipeline | Vansh" },
+      { name: "description", content: "B2B SaaS founders: book a free 20-minute call to scope outbound, cold email, or meeting setting." },
+      { property: "og:title", content: "Let's talk pipeline." },
+      { property: "og:description", content: "Reply within 24 hours. Outbound that actually works." },
+    ],
+  }),
+  component: Contact,
+});
+
+function Contact() {
+  const [sent, setSent] = useState(false);
+
+  return (
+    <PageShell>
+      <section className="max-w-5xl mx-auto px-5 sm:px-8 pt-16 pb-10">
+        <h1 className="font-display text-5xl sm:text-7xl">
+          Let's talk <span className="squiggle">pipeline</span>.
+        </h1>
+      </section>
+
+      <section className="max-w-5xl mx-auto px-5 sm:px-8 pb-24 grid md:grid-cols-2 gap-10">
+        <div>
+          <h2 className="font-display text-3xl mb-4">Best for:</h2>
+          <ul className="space-y-3 text-lg">
+            <li className="flex gap-3"><span className="text-secondary">✦</span> B2B SaaS companies in India</li>
+            <li className="flex gap-3"><span className="text-primary">✦</span> Founders with a product but no outbound motion</li>
+            <li className="flex gap-3"><span className="text-secondary">✦</span> Sales teams who need more pipeline, not more advice</li>
+          </ul>
+
+          <div className="mt-8">
+            <span className="sticker sticker-orange">Usually reply within 24 hours ⚡</span>
+          </div>
+
+          <div className="mt-10 space-y-3">
+            <p className="text-foreground/80">
+              <span className="text-muted-foreground text-sm block">Email</span>
+              <a href="mailto:vansh@example.com" className="font-display text-2xl text-primary squiggle">vansh@example.com</a>
+            </p>
+            <p className="text-foreground/80">
+              <span className="text-muted-foreground text-sm block">LinkedIn</span>
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="font-display text-2xl text-primary squiggle">/in/vansh</a>
+            </p>
+          </div>
+        </div>
+
+        <form
+          onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+          className="doodle-card p-7 sm:p-8 space-y-4"
+        >
+          {sent ? (
+            <div className="py-12 text-center">
+              <div className="text-6xl mb-3">📬</div>
+              <p className="font-display text-3xl">Sent! I'll reply within 24h.</p>
+            </div>
+          ) : (
+            <>
+              <Field label="Name"><input required name="name" className="form-input" /></Field>
+              <Field label="Company"><input required name="company" className="form-input" /></Field>
+              <Field label="Email"><input required type="email" name="email" className="form-input" /></Field>
+              <Field label="What do you need?">
+                <select name="need" className="form-input" defaultValue="">
+                  <option value="" disabled>Pick one…</option>
+                  <option>Cold Email Campaigns</option>
+                  <option>Meeting Setting</option>
+                  <option>TAM Mapping</option>
+                  <option>Lead Generation</option>
+                  <option>Email Copywriting</option>
+                  <option>Not Sure Yet</option>
+                </select>
+              </Field>
+              <Field label="Message">
+                <textarea required name="message" rows={4} className="form-input" />
+              </Field>
+              <button type="submit" className="btn-doodle btn-orange font-display text-xl w-full justify-center">
+                Send it →
+              </button>
+            </>
+          )}
+        </form>
+      </section>
+
+      <style>{`
+        .form-input {
+          width: 100%;
+          padding: 0.7rem 0.85rem;
+          border: 2px dashed var(--ink);
+          border-radius: 10px;
+          background: var(--background);
+          font-family: var(--font-sans);
+          font-size: 1rem;
+          outline: none;
+          transition: box-shadow 150ms;
+        }
+        .form-input:focus { box-shadow: 3px 3px 0 var(--primary); }
+      `}</style>
+    </PageShell>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="font-display text-xl block mb-1">{label}</span>
+      {children}
+    </label>
+  );
+}
