@@ -46,15 +46,15 @@ function Proof() {
             <span className="w-3 h-3 rounded-full bg-primary inline-block" />
             <span className="ml-3 font-medium">Re: Your last email</span>
           </div>
-          <div className="overflow-hidden border-2 border-dashed border-foreground/70 bg-white rounded-b-md" style={{ height: "220px" }}>
+          <div className="overflow-hidden border-2 border-dashed border-foreground/70 bg-white rounded-b-md">
             <img
               src={emailReply}
               alt="Cold email reply: appreciate your constant follow-up with relevant insights, not sure to address you as a real person or an AI bot. Let me know when we can e-meet next week."
-              className="w-full h-auto block"
-              style={{ objectFit: "cover", objectPosition: "center bottom", minHeight: "100%" }}
+              className="w-full block"
+              style={{ objectFit: "cover", objectPosition: "center bottom", aspectRatio: "1500 / 240" }}
             />
           </div>
-          <p className="mt-4 text-base font-medium">— Alamar Foods (Domino's)</p>
+          <p className="mt-4 text-base font-medium">— Domino's UAE</p>
         </div>
       </section>
 
