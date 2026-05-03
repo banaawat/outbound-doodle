@@ -28,12 +28,21 @@ function Home() {
   return (
     <PageShell>
       {/* HERO */}
-      <section className="relative dot-grid">
+      <section className="relative dot-grid overflow-hidden">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-24 relative">
           <div className="absolute right-6 top-10 hidden md:block">
             <span className="sticker sticker-orange" style={{ transform: "rotate(-3deg)" }}>
               Open to new clients ✦
             </span>
+          </div>
+
+          {/* floating doodles */}
+          <Star className="absolute top-24 right-[18%] w-7 h-7 hidden md:block" color="var(--secondary)" />
+          <Star className="absolute bottom-32 left-[6%] w-5 h-5 hidden md:block" color="var(--primary)" />
+
+          <div className="inline-flex items-center gap-2 mb-5 pill" style={{ background: "color-mix(in oklab, var(--accent) 40%, white)" }}>
+            <span className="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse" />
+            <span className="font-medium">Outbound specialist · Gurgaon → Worldwide</span>
           </div>
 
           <h1 className="font-display text-5xl sm:text-7xl lg:text-[5.5rem] leading-[1] max-w-5xl">
@@ -46,12 +55,27 @@ function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link to="/proof" className="btn-doodle btn-primary text-base">
-              See My Work →
+            <Link to="/contact" className="btn-doodle btn-primary text-base">
+              Book a Free Call →
             </Link>
-            <Link to="/services" className="btn-doodle text-base">
-              View Services
+            <Link to="/proof" className="btn-doodle text-base">
+              See the Replies
             </Link>
+          </div>
+
+          {/* quick stat strip */}
+          <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 items-center">
+            {[
+              { v: "$150K+", l: "pipeline" },
+              { v: "80+", l: "SQLs booked" },
+              { v: "7%", l: "reply rate" },
+              { v: "3+ yrs", l: "running outbound" },
+            ].map((s) => (
+              <div key={s.l} className="flex items-baseline gap-2">
+                <span className="font-display text-3xl text-primary">{s.v}</span>
+                <span className="text-sm text-muted-foreground">{s.l}</span>
+              </div>
+            ))}
           </div>
 
           <div className="mt-14 flex items-center gap-3 text-muted-foreground">
