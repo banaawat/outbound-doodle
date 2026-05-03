@@ -113,6 +113,12 @@ function Home() {
         </div>
       </section>
 
+      {/* PROCESS */}
+      <Process />
+
+      {/* FAQ */}
+      <FAQ />
+
       {/* CTA BANNER */}
       <section className="max-w-6xl mx-auto px-5 sm:px-8 pb-24">
         <div className="doodle-card p-10 sm:p-14 text-center" style={{ background: "color-mix(in oklab, var(--primary) 8%, white)" }}>
