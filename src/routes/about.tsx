@@ -21,7 +21,21 @@ const STATS = [
   { v: "7%", l: "Reply Rate Achieved" },
 ];
 
-const TOOLS = ["Apollo.io", "Clay", "HubSpot", "LinkedIn Sales Nav", "Instantly", "Lemlist", "Google Workspace"];
+const TIMELINE = [
+  { y: "2022", title: "First SDR role", desc: "Joined an Indian SaaS company as an SDR. Sent my first 10,000 cold emails. Learned the hard way what doesn't work." },
+  { y: "2023", title: "ME + SEA expansion", desc: "Took outbound into Middle East and Southeast Asia. Booked first meetings with Emirates NBD, ADNOC, KFC, McDonald's." },
+  { y: "2024", title: "7% reply rate cracked", desc: "Rebuilt sequences from scratch using personalised research + tighter copy. Pushed reply rates from 2% to 7% on cold campaigns." },
+  { y: "2025", title: "Independent practice", desc: "Now running outbound as a service for B2B SaaS founders who'd rather close than configure Apollo." },
+];
+
+const PRINCIPLES = [
+  { t: "Specific beats clever", d: "A boring email referencing something real beats a witty one referencing nothing." },
+  { t: "Volume is a tax", d: "If your copy is good, you don't need 10,000 emails. You need 500 to the right people." },
+  { t: "Follow-ups close", d: "First email gets the open. Touches 3–5 get the reply. Most people quit at touch 2." },
+  { t: "Honesty travels", d: "Tell them why you're emailing. Tell them what you want. Skip the manipulation tactics." },
+];
+
+const TOOLS = ["Apollo.io", "Clay", "HubSpot", "LinkedIn Sales Nav", "Instantly", "Lemlist", "Smartlead", "Google Workspace"];
 
 function About() {
   return (
