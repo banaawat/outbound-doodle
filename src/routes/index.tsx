@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Logos } from "@/components/Logos";
 import { DoodleArrow, Star } from "@/components/Squiggle";
+import { Process } from "@/components/Process";
+import { FAQ } from "@/components/FAQ";
 import emailReply from "@/assets/email-reply.png";
 
 export const Route = createFileRoute("/")({
