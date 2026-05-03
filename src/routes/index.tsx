@@ -54,13 +54,22 @@ function Home() {
             Outbound sales, cold email, and meeting generation — for Indian B2B SaaS companies ready to move fast.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link to="/contact" className="btn-doodle btn-primary text-base">
-              Book a Free Call →
+          <div className="mt-10 flex flex-wrap gap-5 items-center">
+            <Link to="/contact" className="btn-doodle btn-orange font-display text-xl px-7 py-4 inline-flex items-center gap-2">
+              Book a free 20-min call
+              <span aria-hidden>→</span>
             </Link>
-            <Link to="/proof" className="btn-doodle text-base">
-              See the Replies
+            <Link to="/proof" className="font-display text-xl text-foreground squiggle-blue">
+              or see the replies
             </Link>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="flex -space-x-1">
+                <span className="w-2 h-2 rounded-full bg-secondary inline-block" />
+                <span className="w-2 h-2 rounded-full bg-primary inline-block" />
+                <span className="w-2 h-2 rounded-full bg-accent inline-block" />
+              </span>
+              <span>2 spots open this month</span>
+            </div>
           </div>
 
           {/* quick stat strip */}
