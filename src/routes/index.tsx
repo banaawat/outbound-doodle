@@ -29,6 +29,11 @@ function Home() {
     <PageShell>
       {/* HERO */}
       <section className="relative dot-grid overflow-hidden">
+        {/* drifting color blobs */}
+        <span className="hero-blob" style={{ background: "var(--accent)", width: 380, height: 380, top: -80, left: -80, animationDelay: "0s" }} />
+        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--secondary) 60%, white)", width: 320, height: 320, top: 120, right: -60, animationDelay: "3s" }} />
+        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--primary) 35%, white)", width: 260, height: 260, bottom: -60, left: "30%", animationDelay: "6s" }} />
+
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-24 relative">
           <div className="absolute right-6 top-10 hidden md:block">
             <span className="sticker sticker-orange" style={{ transform: "rotate(-3deg)" }}>
@@ -37,8 +42,8 @@ function Home() {
           </div>
 
           {/* floating doodles */}
-          <Star className="absolute top-24 right-[18%] w-7 h-7 hidden md:block" color="var(--secondary)" />
-          <Star className="absolute bottom-32 left-[6%] w-5 h-5 hidden md:block" color="var(--primary)" />
+          <Star className="absolute top-24 right-[18%] w-7 h-7 hidden md:block drift-star" color="var(--secondary)" />
+          <Star className="absolute bottom-32 left-[6%] w-5 h-5 hidden md:block drift-star" color="var(--primary)" />
 
           <div className="inline-flex items-center gap-2 mb-5 pill" style={{ background: "color-mix(in oklab, var(--accent) 40%, white)" }}>
             <span className="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse" />
