@@ -73,16 +73,20 @@ function Home() {
           </div>
 
           {/* quick stat strip */}
-          <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 items-center">
+          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { v: "$150K+", l: "pipeline" },
-              { v: "80+", l: "SQLs booked" },
-              { v: "7%", l: "reply rate" },
-              { v: "3+ yrs", l: "running outbound" },
-            ].map((s) => (
-              <div key={s.l} className="flex items-baseline gap-2">
-                <span className="font-display text-3xl text-primary">{s.v}</span>
-                <span className="text-sm text-muted-foreground">{s.l}</span>
+              { v: "$150K+", l: "pipeline", bg: "var(--accent)", rot: "-1deg" },
+              { v: "80+", l: "SQLs booked", bg: "color-mix(in oklab, var(--secondary) 25%, white)", rot: "0.8deg" },
+              { v: "7%", l: "reply rate", bg: "color-mix(in oklab, var(--primary) 12%, white)", rot: "-0.6deg" },
+              { v: "3+ yrs", l: "outbound", bg: "var(--card)", rot: "1.2deg" },
+            ].map((s, i) => (
+              <div
+                key={s.l}
+                className="doodle-card px-4 py-3 flex flex-col items-start gap-0.5 stat-float"
+                style={{ background: s.bg, transform: `rotate(${s.rot})`, animationDelay: `${i * 0.4}s` }}
+              >
+                <span className="font-display text-3xl sm:text-4xl text-primary leading-none">{s.v}</span>
+                <span className="text-xs sm:text-sm text-foreground/70 font-medium">{s.l}</span>
               </div>
             ))}
           </div>
