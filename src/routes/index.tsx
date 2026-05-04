@@ -28,77 +28,85 @@ function Home() {
   return (
     <PageShell>
       {/* HERO */}
-      <section className="relative dot-grid overflow-hidden">
+      <section className="relative dot-grid overflow-hidden border-b-2 border-dashed border-foreground/80">
         {/* drifting color blobs */}
-        <span className="hero-blob" style={{ background: "var(--accent)", width: 380, height: 380, top: -80, left: -80, animationDelay: "0s" }} />
-        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--secondary) 60%, white)", width: 320, height: 320, top: 120, right: -60, animationDelay: "3s" }} />
-        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--primary) 35%, white)", width: 260, height: 260, bottom: -60, left: "30%", animationDelay: "6s" }} />
+        <span className="hero-blob" style={{ background: "var(--accent)", width: 460, height: 460, top: -120, left: -100, animationDelay: "0s" }} />
+        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--secondary) 70%, white)", width: 380, height: 380, top: 80, right: -80, animationDelay: "3s" }} />
+        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--primary) 40%, white)", width: 320, height: 320, bottom: -80, left: "35%", animationDelay: "6s" }} />
 
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-24 relative">
-          <div className="absolute right-6 top-10 hidden md:block">
-            <span className="sticker sticker-orange" style={{ transform: "rotate(-3deg)" }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-24 relative">
+          <div className="absolute right-6 top-10 hidden md:block z-10">
+            <span className="sticker sticker-orange text-base px-4 py-2" style={{ transform: "rotate(-4deg)", fontSize: "1.2rem" }}>
               Open to new clients ✦
             </span>
           </div>
 
           {/* floating doodles */}
-          <Star className="absolute top-24 right-[18%] w-7 h-7 hidden md:block drift-star" color="var(--secondary)" />
-          <Star className="absolute bottom-32 left-[6%] w-5 h-5 hidden md:block drift-star" color="var(--primary)" />
+          <Star className="absolute top-32 right-[14%] w-10 h-10 hidden md:block drift-star" color="var(--secondary)" />
+          <Star className="absolute top-[42%] left-[2%] w-7 h-7 hidden md:block drift-star" color="var(--primary)" />
+          <Star className="absolute bottom-40 right-[8%] w-6 h-6 hidden md:block drift-star" color="var(--accent)" />
 
-          <div className="inline-flex items-center gap-2 mb-5 pill" style={{ background: "color-mix(in oklab, var(--accent) 40%, white)" }}>
+          <div className="inline-flex items-center gap-2 mb-6 pill" style={{ background: "color-mix(in oklab, var(--accent) 50%, white)" }}>
             <span className="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse" />
-            <span className="font-medium">Outbound specialist · Gurgaon → Worldwide</span>
+            <span className="font-semibold tracking-wide uppercase text-xs">Outbound specialist · Gurgaon → Worldwide</span>
           </div>
 
-          <h1 className="font-display text-5xl sm:text-7xl lg:text-[5.5rem] leading-[1] max-w-5xl">
-            I book <span className="squiggle">meetings</span> with brands you've{" "}
+          <h1 className="font-serif-d text-[clamp(2.75rem,9vw,7.5rem)] leading-[0.92] tracking-tight max-w-[18ch]">
+            I book{" "}
+            <span className="relative inline-block">
+              <span className="relative z-10 italic font-display text-primary">meetings</span>
+              <svg viewBox="0 0 300 30" className="absolute left-0 right-0 -bottom-2 w-full h-4" preserveAspectRatio="none" aria-hidden>
+                <path d="M2 15 Q 75 2 150 15 T 298 15" fill="none" stroke="var(--secondary)" strokeWidth="5" strokeLinecap="round" />
+              </svg>
+            </span>{" "}
+            with brands you've{" "}
             <span className="highlight">actually heard of</span>.
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg sm:text-xl text-foreground/80 font-sans">
-            Outbound sales, cold email, and meeting generation — for Indian B2B SaaS companies ready to move fast.
+          <p className="mt-8 max-w-2xl text-lg sm:text-2xl text-foreground/85 font-sans leading-snug">
+            Outbound, cold email, and meeting generation — built for B2B SaaS teams who want pipeline, <em className="font-serif-d not-italic">fast</em>.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-5 items-center">
-            <Link to="/contact" className="btn-doodle btn-orange font-display text-xl px-7 py-4 inline-flex items-center gap-2">
+            <Link to="/contact" className="btn-doodle btn-orange font-display text-2xl sm:text-3xl px-8 py-4 inline-flex items-center gap-2">
               Book a free 20-min call
               <span aria-hidden>→</span>
             </Link>
-            <Link to="/proof" className="font-display text-xl text-foreground squiggle-blue">
+            <Link to="/proof" className="font-display text-2xl text-foreground squiggle-blue">
               or see the replies
             </Link>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span className="flex -space-x-1">
-                <span className="w-2 h-2 rounded-full bg-secondary inline-block" />
-                <span className="w-2 h-2 rounded-full bg-primary inline-block" />
-                <span className="w-2 h-2 rounded-full bg-accent inline-block" />
-              </span>
-              <span>2 spots open this month</span>
-            </div>
+          </div>
+          <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="flex -space-x-1">
+              <span className="w-2.5 h-2.5 rounded-full bg-secondary inline-block border border-foreground" />
+              <span className="w-2.5 h-2.5 rounded-full bg-primary inline-block border border-foreground" />
+              <span className="w-2.5 h-2.5 rounded-full bg-accent inline-block border border-foreground" />
+            </span>
+            <span className="font-medium">Only 2 spots open this month</span>
           </div>
 
           {/* quick stat strip */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5">
             {[
-              { v: "$150K+", l: "pipeline", bg: "var(--accent)", rot: "-1deg" },
-              { v: "80+", l: "SQLs booked", bg: "color-mix(in oklab, var(--secondary) 25%, white)", rot: "0.8deg" },
-              { v: "7%", l: "reply rate", bg: "color-mix(in oklab, var(--primary) 12%, white)", rot: "-0.6deg" },
-              { v: "3+ yrs", l: "outbound", bg: "var(--card)", rot: "1.2deg" },
+              { v: "$150K+", l: "pipeline built", bg: "var(--accent)", rot: "-1.5deg", color: "var(--ink)" },
+              { v: "80+", l: "SQLs booked", bg: "var(--secondary)", rot: "1deg", color: "var(--secondary-foreground)" },
+              { v: "7%", l: "reply rate", bg: "var(--primary)", rot: "-0.8deg", color: "var(--primary-foreground)" },
+              { v: "3+ yrs", l: "running outbound", bg: "var(--card)", rot: "1.4deg", color: "var(--ink)" },
             ].map((s, i) => (
               <div
                 key={s.l}
-                className="doodle-card px-4 py-3 flex flex-col items-start gap-0.5 stat-float"
-                style={{ background: s.bg, transform: `rotate(${s.rot})`, animationDelay: `${i * 0.4}s` }}
+                className="doodle-card px-5 py-4 flex flex-col items-start gap-1 stat-float"
+                style={{ background: s.bg, color: s.color, transform: `rotate(${s.rot})`, animationDelay: `${i * 0.5}s` }}
               >
-                <span className="font-display text-3xl sm:text-4xl text-primary leading-none">{s.v}</span>
-                <span className="text-xs sm:text-sm text-foreground/70 font-medium">{s.l}</span>
+                <span className="font-serif-d text-4xl sm:text-5xl leading-none" style={{ color: s.color }}>{s.v}</span>
+                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wide opacity-80">{s.l}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-14 flex items-center gap-3 text-muted-foreground">
-            <DoodleArrow className="w-10 h-12 text-secondary" />
-            <span className="font-display text-2xl">meetings booked with</span>
+          <div className="mt-16 flex items-center gap-3 text-foreground">
+            <DoodleArrow className="w-12 h-14 text-secondary" />
+            <span className="font-display text-3xl">meetings booked with</span>
           </div>
         </div>
       </section>
