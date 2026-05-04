@@ -29,6 +29,11 @@ function Home() {
     <PageShell>
       {/* HERO */}
       <section className="relative dot-grid overflow-hidden">
+        {/* drifting color blobs */}
+        <span className="hero-blob" style={{ background: "var(--accent)", width: 380, height: 380, top: -80, left: -80, animationDelay: "0s" }} />
+        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--secondary) 60%, white)", width: 320, height: 320, top: 120, right: -60, animationDelay: "3s" }} />
+        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--primary) 35%, white)", width: 260, height: 260, bottom: -60, left: "30%", animationDelay: "6s" }} />
+
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-24 relative">
           <div className="absolute right-6 top-10 hidden md:block">
             <span className="sticker sticker-orange" style={{ transform: "rotate(-3deg)" }}>
@@ -37,8 +42,8 @@ function Home() {
           </div>
 
           {/* floating doodles */}
-          <Star className="absolute top-24 right-[18%] w-7 h-7 hidden md:block" color="var(--secondary)" />
-          <Star className="absolute bottom-32 left-[6%] w-5 h-5 hidden md:block" color="var(--primary)" />
+          <Star className="absolute top-24 right-[18%] w-7 h-7 hidden md:block drift-star" color="var(--secondary)" />
+          <Star className="absolute bottom-32 left-[6%] w-5 h-5 hidden md:block drift-star" color="var(--primary)" />
 
           <div className="inline-flex items-center gap-2 mb-5 pill" style={{ background: "color-mix(in oklab, var(--accent) 40%, white)" }}>
             <span className="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse" />
@@ -73,16 +78,20 @@ function Home() {
           </div>
 
           {/* quick stat strip */}
-          <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 items-center">
+          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { v: "$150K+", l: "pipeline" },
-              { v: "80+", l: "SQLs booked" },
-              { v: "7%", l: "reply rate" },
-              { v: "3+ yrs", l: "running outbound" },
-            ].map((s) => (
-              <div key={s.l} className="flex items-baseline gap-2">
-                <span className="font-display text-3xl text-primary">{s.v}</span>
-                <span className="text-sm text-muted-foreground">{s.l}</span>
+              { v: "$150K+", l: "pipeline", bg: "var(--accent)", rot: "-1deg" },
+              { v: "80+", l: "SQLs booked", bg: "color-mix(in oklab, var(--secondary) 25%, white)", rot: "0.8deg" },
+              { v: "7%", l: "reply rate", bg: "color-mix(in oklab, var(--primary) 12%, white)", rot: "-0.6deg" },
+              { v: "3+ yrs", l: "outbound", bg: "var(--card)", rot: "1.2deg" },
+            ].map((s, i) => (
+              <div
+                key={s.l}
+                className="doodle-card px-4 py-3 flex flex-col items-start gap-0.5 stat-float"
+                style={{ background: s.bg, transform: `rotate(${s.rot})`, animationDelay: `${i * 0.4}s` }}
+              >
+                <span className="font-display text-3xl sm:text-4xl text-primary leading-none">{s.v}</span>
+                <span className="text-xs sm:text-sm text-foreground/70 font-medium">{s.l}</span>
               </div>
             ))}
           </div>

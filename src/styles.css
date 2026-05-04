@@ -184,4 +184,31 @@
     background: var(--card);
     font-size: 0.85rem;
   }
+
+  /* Floating animations */
+  @keyframes statFloat {
+    0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+    50% { transform: translateY(-5px) rotate(var(--rot, 0deg)); }
+  }
+  .stat-float { animation: statFloat 4.5s ease-in-out infinite; }
+
+  @keyframes driftStar {
+    0%, 100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(8px,-10px) rotate(15deg); }
+  }
+  .drift-star { animation: driftStar 6s ease-in-out infinite; }
+
+  @keyframes blobDrift {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(30px,-20px) scale(1.05); }
+    66% { transform: translate(-20px,15px) scale(0.97); }
+  }
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: blobDrift 14s ease-in-out infinite;
+  }
 }
