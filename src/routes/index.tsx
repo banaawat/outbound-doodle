@@ -30,73 +30,73 @@ function Home() {
     <PageShell>
       {/* HERO */}
       <section className="relative dot-grid overflow-hidden border-b-2 border-dashed border-foreground/80">
-        {/* drifting color blobs */}
-        <span className="hero-blob" style={{ background: "var(--accent)", width: 460, height: 460, top: -120, left: -100, animationDelay: "0s" }} />
-        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--secondary) 70%, white)", width: 380, height: 380, top: 80, right: -80, animationDelay: "3s" }} />
-        <span className="hero-blob" style={{ background: "color-mix(in oklab, var(--primary) 40%, white)", width: 320, height: 320, bottom: -80, left: "35%", animationDelay: "6s" }} />
-
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-20 relative">
-          {/* floating doodles */}
-          <Star className="absolute top-20 left-[46%] w-7 h-7 hidden md:block drift-star" color="var(--secondary)" />
-          <Star className="absolute bottom-32 left-[2%] w-6 h-6 hidden md:block drift-star" color="var(--primary)" />
-
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-16 relative">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* LEFT — copy */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 mb-5 pill" style={{ background: "color-mix(in oklab, var(--accent) 50%, white)" }}>
+              <div className="inline-flex items-center gap-2 mb-6 pill" style={{ background: "var(--card)" }}>
                 <span className="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse" />
-                <span className="font-semibold tracking-wide uppercase text-xs">Outbound specialist · Gurgaon → Worldwide</span>
+                <span className="font-semibold tracking-wide uppercase text-xs">Outbound for B2B SaaS · 80+ meetings booked</span>
               </div>
 
-              <h1 className="font-serif-d text-[clamp(2rem,5.2vw,4.25rem)] leading-[1.02] tracking-tight">
-                I book{" "}
+              <h1 className="font-serif-d text-[clamp(2.5rem,6vw,5rem)] leading-[0.98] tracking-tight">
+                Cold email that books{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10 italic font-display text-primary">meetings</span>
+                  <span className="relative z-10 text-primary">qualified meetings</span>
                   <svg viewBox="0 0 300 30" className="absolute left-0 right-0 -bottom-1 w-full h-3" preserveAspectRatio="none" aria-hidden>
                     <path d="M2 15 Q 75 2 150 15 T 298 15" fill="none" stroke="var(--secondary)" strokeWidth="5" strokeLinecap="round" />
                   </svg>
-                </span>{" "}
-                with brands you've{" "}
-                <span className="highlight">actually heard of</span>.
+                </span>
+                {" "}— not unsubscribes.
               </h1>
 
-              <p className="mt-5 max-w-xl text-base sm:text-lg text-foreground/80 font-sans leading-snug">
-                Outbound, cold email, and meeting generation — built for B2B SaaS teams who want pipeline, <em className="font-serif-d not-italic">fast</em>.
+              <p className="mt-6 max-w-xl text-lg sm:text-xl text-foreground/80 font-sans leading-snug">
+                I run done-for-you outbound that puts <strong>5–15 sales-qualified meetings</strong> on your calendar every month. No retainers locked behind 6-month contracts. No spray-and-pray.
               </p>
 
-              <div className="mt-7 flex flex-wrap gap-4 items-center">
-                <Link to="/contact" className="btn-doodle btn-orange font-display text-xl sm:text-2xl px-6 py-3 inline-flex items-center gap-2">
-                  Book a free 20-min call
+              {/* Value bullets */}
+              <ul className="mt-6 space-y-2.5 max-w-xl">
+                {[
+                  "Built and shipped in 14 days — not 6 weeks",
+                  "Replies from CXOs at brands you've heard of",
+                  "Pay for meetings booked, not emails sent",
+                ].map((b) => (
+                  <li key={b} className="flex items-start gap-3 text-base sm:text-lg">
+                    <span className="mt-1 inline-flex w-5 h-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold flex-shrink-0">✓</span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 flex flex-wrap gap-4 items-center">
+                <Link to="/contact" className="btn-doodle btn-primary font-sans font-bold text-base sm:text-lg px-7 py-4 inline-flex items-center gap-2">
+                  Book your free strategy call
                   <span aria-hidden>→</span>
                 </Link>
-                <Link to="/proof" className="font-display text-xl text-foreground squiggle-blue">
-                  or see the replies
+                <Link to="/proof" className="font-sans font-semibold text-base text-foreground underline underline-offset-4 decoration-2 decoration-secondary">
+                  See real replies →
                 </Link>
               </div>
-              <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="flex -space-x-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-secondary inline-block border border-foreground" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary inline-block border border-foreground" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-accent inline-block border border-foreground" />
+              <div className="mt-3 flex items-center gap-3 text-sm text-muted-foreground">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-secondary inline-block" />
+                  <span className="font-medium">2 spots left for May</span>
                 </span>
-                <span className="font-medium">Only 2 spots open this month</span>
+                <span className="opacity-60">·</span>
+                <span>20 min · No pitch</span>
               </div>
 
               {/* quick stat strip */}
               <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { v: "$150K+", l: "pipeline", bg: "var(--accent)", rot: "-1.5deg", color: "var(--ink)" },
-                  { v: "80+", l: "SQLs booked", bg: "var(--secondary)", rot: "1deg", color: "var(--secondary-foreground)" },
-                  { v: "7%", l: "reply rate", bg: "var(--primary)", rot: "-0.8deg", color: "var(--primary-foreground)" },
-                  { v: "3+ yrs", l: "outbound", bg: "var(--card)", rot: "1.4deg", color: "var(--ink)" },
-                ].map((s, i) => (
-                  <div
-                    key={s.l}
-                    className="doodle-card px-3 py-2.5 flex flex-col items-start gap-0.5 stat-float"
-                    style={{ background: s.bg, color: s.color, transform: `rotate(${s.rot})`, animationDelay: `${i * 0.5}s` }}
-                  >
-                    <span className="font-serif-d text-2xl sm:text-3xl leading-none" style={{ color: s.color }}>{s.v}</span>
-                    <span className="text-[0.65rem] sm:text-xs font-semibold uppercase tracking-wide opacity-80">{s.l}</span>
+                  { v: "$150K+", l: "pipeline generated" },
+                  { v: "80+", l: "SQLs booked" },
+                  { v: "7%", l: "avg reply rate" },
+                  { v: "14 days", l: "to first meeting" },
+                ].map((s) => (
+                  <div key={s.l} className="doodle-card-soft px-3 py-2.5 flex flex-col items-start gap-0.5 bg-card">
+                    <span className="font-serif-d text-2xl sm:text-3xl leading-none text-primary">{s.v}</span>
+                    <span className="text-[0.65rem] sm:text-xs font-semibold uppercase tracking-wide text-muted-foreground">{s.l}</span>
                   </div>
                 ))}
               </div>
@@ -104,16 +104,13 @@ function Home() {
 
             {/* RIGHT — animated pipeline */}
             <div className="lg:col-span-5 relative">
-              <span className="sticker sticker-orange absolute -top-6 right-0 z-20 hidden md:inline-flex" style={{ transform: "rotate(-4deg)" }}>
-                Open to new clients ✦
-              </span>
               <SalesPipeline />
             </div>
           </div>
 
           <div className="mt-14 flex items-center gap-3 text-foreground">
             <DoodleArrow className="w-10 h-12 text-secondary" />
-            <span className="font-display text-2xl sm:text-3xl">meetings booked with</span>
+            <span className="font-display text-2xl sm:text-3xl">trusted by teams at</span>
           </div>
         </div>
       </section>
