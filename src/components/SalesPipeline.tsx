@@ -15,13 +15,8 @@ export function SalesPipeline() {
 
   return (
     <div className="relative w-full">
-      {/* floating doodles around */}
-      <Star className="absolute -top-4 -left-2 w-6 h-6 drift-star" color="var(--secondary)" />
-      <Star className="absolute top-1/3 -right-3 w-5 h-5 drift-star" color="var(--primary)" />
-      <Star className="absolute -bottom-2 left-10 w-5 h-5 drift-star" color="var(--accent)" />
-
       {/* The pipeline card */}
-      <div className="doodle-card p-5 sm:p-6 relative bg-card" style={{ transform: "rotate(-1deg)" }}>
+      <div className="doodle-card p-5 sm:p-6 relative bg-card">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse inline-block" />
