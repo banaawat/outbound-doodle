@@ -1,92 +1,114 @@
-import { Star } from "./Squiggle";
+import { useEffect, useState } from "react";
 
 /**
- * Animated sales pipeline visual.
- * Shows leads flowing through stages: Prospects → Sent → Replied → Booked
- * with little "lead" dots that travel down the pipeline on a loop.
+ * Live pipeline dashboard — clean, data-driven look.
+ * Shows funnel metrics with subtle counter animation and a sparkline.
  */
 export function SalesPipeline() {
-  const stages = [
-    { label: "Prospects", count: "1,240", color: "var(--accent)", icon: "👥" },
-    { label: "Emails sent", count: "3,720", color: "color-mix(in oklab, var(--primary) 25%, white)", icon: "✉️" },
-    { label: "Replies", count: "260", color: "color-mix(in oklab, var(--secondary) 35%, white)", icon: "💬" },
-    { label: "Meetings booked", color: "var(--secondary)", count: "82", icon: "📅", highlight: true },
+  const targets = [
+    { label: "Prospects sourced", value: 1240, delta: "+128 this wk" },
+    { label: "Emails delivered", value: 3720, delta: "98.4% inbox" },
+    { label: "Positive replies", value: 260, delta: "7.0% rate" },
+    { label: "Meetings booked", value: 82, delta: "+12 this wk", accent: true },
   ];
+
+  const [counts, setCounts] = useState(targets.map(() => 0));
+
+  useEffect(() => {
+    const start = performance.now();
+    const dur = 1400;
+    let raf = 0;
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      setCounts(targets.map((s) => Math.round(s.value * e)));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  // funnel widths derived from values
+  const max = targets[0].value;
+  const widths = targets.map((s) => 30 + (s.value / max) * 70);
+
+  // sparkline path
+  const spark = [12, 18, 14, 22, 19, 28, 24, 32, 30, 38, 35, 42];
+  const sparkMax = Math.max(...spark);
+  const sparkPath = spark
+    .map((v, i) => `${i === 0 ? "M" : "L"} ${(i / (spark.length - 1)) * 100} ${40 - (v / sparkMax) * 36}`)
+    .join(" ");
 
   return (
     <div className="relative w-full">
-      {/* The pipeline card */}
-      <div className="doodle-card p-5 sm:p-6 relative bg-card">
-        <div className="flex items-center justify-between mb-4">
+      <div className="doodle-card bg-card overflow-hidden">
+        {/* Header bar */}
+        <div className="flex items-center justify-between px-5 py-3 border-b-2 border-dashed border-foreground/30 bg-[color-mix(in_oklab,var(--primary)_5%,white)]">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse inline-block" />
-            <span className="font-display text-2xl">live pipeline</span>
+            <span className="flex gap-1">
+              <span className="w-2.5 h-2.5 rounded-full bg-secondary" />
+              <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+              <span className="w-2.5 h-2.5 rounded-full bg-primary" />
+            </span>
+            <span className="font-mono text-xs text-muted-foreground ml-1">pipeline.live</span>
           </div>
-          <span className="sticker sticker-blue text-xs" style={{ transform: "rotate(3deg)" }}>
-            this month
-          </span>
+          <div className="flex items-center gap-2 text-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block" />
+            <span className="font-mono text-muted-foreground">streaming · last 30d</span>
+          </div>
         </div>
 
-        {/* Stages */}
-        <div className="relative space-y-3">
-          {stages.map((s, i) => (
-            <div key={s.label} className="relative">
-              <div
-                className="doodle-card-soft flex items-center justify-between px-4 py-3"
-                style={{
-                  background: s.color,
-                  width: `${100 - i * 8}%`,
-                  marginLeft: `${i * 4}%`,
-                  color: s.highlight ? "var(--secondary-foreground)" : "var(--ink)",
-                }}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{s.icon}</span>
-                  <span className="font-semibold text-sm sm:text-base">{s.label}</span>
-                </div>
-                <span className="font-serif-d text-2xl sm:text-3xl leading-none">{s.count}</span>
-              </div>
+        {/* Top KPI */}
+        <div className="px-5 pt-5 pb-3 flex items-end justify-between gap-4">
+          <div>
+            <div className="text-xs uppercase tracking-wider font-semibold text-muted-foreground">Conversion</div>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="font-serif-d text-5xl leading-none text-foreground">6.6%</span>
+              <span className="text-emerald-600 font-semibold text-sm">▲ 1.2%</span>
+            </div>
+            <div className="text-xs text-muted-foreground mt-1">Prospect → meeting booked</div>
+          </div>
+          <svg viewBox="0 0 100 40" className="w-32 h-12" preserveAspectRatio="none" aria-hidden>
+            <path d={sparkPath} fill="none" stroke="var(--primary)" strokeWidth="2" />
+            <path d={`${sparkPath} L 100 40 L 0 40 Z`} fill="var(--primary)" opacity="0.08" />
+          </svg>
+        </div>
 
-              {/* Connector line + traveling dot */}
-              {i < stages.length - 1 && (
-                <div className="relative h-5 ml-6">
-                  <svg viewBox="0 0 20 20" className="h-5 w-5" aria-hidden>
-                    <path
-                      d="M10 1 L10 17 M5 12 L10 18 L15 12"
-                      fill="none"
-                      stroke="var(--ink)"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeDasharray="3 3"
-                    />
-                  </svg>
-                  <span
-                    className="absolute left-1.5 w-3 h-3 rounded-full border-2 border-foreground bg-secondary pipeline-lead"
-                    style={{ animationDelay: `${i * 0.6}s` }}
-                  />
+        {/* Funnel rows */}
+        <div className="px-5 pb-5 space-y-2.5">
+          {targets.map((s, i) => (
+            <div key={s.label} className="space-y-1">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-semibold text-foreground/80">{s.label}</span>
+                <span className="font-mono text-muted-foreground">{s.delta}</span>
+              </div>
+              <div className="relative h-9 rounded-md bg-muted/60 overflow-hidden border border-foreground/10">
+                <div
+                  className="absolute inset-y-0 left-0 flex items-center px-3 transition-[width] duration-700 ease-out"
+                  style={{
+                    width: `${widths[i]}%`,
+                    background: s.accent
+                      ? "linear-gradient(90deg, var(--secondary), color-mix(in oklab, var(--secondary) 70%, var(--primary)))"
+                      : "linear-gradient(90deg, color-mix(in oklab, var(--primary) 85%, white), color-mix(in oklab, var(--primary) 60%, white))",
+                  }}
+                >
+                  <span className="font-serif-d text-xl text-white drop-shadow-sm">
+                    {counts[i].toLocaleString()}
+                  </span>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom stat */}
-        <div className="mt-5 pt-4 border-t-2 border-dashed border-foreground/40 flex items-center justify-between">
-          <span className="text-xs uppercase tracking-wide font-semibold text-muted-foreground">
-            Conversion: prospect → booked
+        {/* Footer ticker */}
+        <div className="px-5 py-3 border-t-2 border-dashed border-foreground/30 bg-[color-mix(in_oklab,var(--accent)_15%,white)] flex items-center justify-between text-xs">
+          <span className="font-mono text-foreground/70">
+            <span className="text-emerald-700 font-semibold">+ meeting booked</span> · Series B SaaS · 2m ago
           </span>
-          <span className="font-serif-d text-3xl text-primary">6.6%</span>
+          <span className="font-mono text-muted-foreground">82 / mo</span>
         </div>
       </div>
-
-      {/* Floating sticker on top */}
-      <span
-        className="sticker sticker-orange absolute -top-4 -right-3 z-10 text-xs"
-        style={{ transform: "rotate(8deg)" }}
-      >
-        +12 booked this week 🎯
-      </span>
     </div>
   );
 }
