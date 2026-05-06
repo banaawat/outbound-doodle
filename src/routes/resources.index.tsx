@@ -276,18 +276,7 @@ function Resources() {
                 <li>✓ One new template or teardown each week</li>
               </ul>
             </div>
-            <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="you@company.com"
-                className="px-4 py-3.5 rounded-md border-2 border-dashed border-foreground/70 bg-white font-sans focus:outline-none focus:border-primary"
-                required
-              />
-              <button type="submit" className="btn-doodle btn-primary font-sans font-bold text-base">
-                Subscribe — it's free →
-              </button>
-              <p className="text-xs text-muted-foreground">No spam. Unsubscribe in one click.</p>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
       </section>
@@ -302,5 +291,70 @@ function Resources() {
         </Link>
       </section>
     </PageShell>
+  );
+}
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": "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",
+        },
+        body: JSON.stringify({ email, listIds: [1] }),
+      });
+      if (res.status === 201 || res.status === 204) {
+        setStatus("success");
+      } else {
+        const body = await res.json().catch(() => ({}));
+        if (body?.code === "duplicate_parameter") {
+          setStatus("success");
+        } else {
+          setStatus("error");
+        }
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  if (status === "success") {
+    return (
+      <div className="flex flex-col gap-3 items-start">
+        <p className="font-display text-2xl">You're in! 🎉</p>
+        <p className="text-sm text-foreground/70">First issue hits your inbox next week.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="you@company.com"
+        className="px-4 py-3.5 rounded-md border-2 border-dashed border-foreground/70 bg-white font-sans focus:outline-none focus:border-primary"
+        required
+      />
+      {status === "error" && (
+        <p className="text-sm text-red-600">Something went wrong — try again.</p>
+      )}
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="btn-doodle btn-primary font-sans font-bold text-base disabled:opacity-60"
+      >
+        {status === "sending" ? "Subscribing…" : "Subscribe — it's free →"}
+      </button>
+      <p className="text-xs text-muted-foreground">No spam. Unsubscribe in one click.</p>
+    </form>
   );
 }

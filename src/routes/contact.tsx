@@ -14,8 +14,44 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
+type Status = "idle" | "sending" | "success" | "error";
+
+async function submitContact(data: Record<string, string>) {
+  await Promise.allSettled([
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ access_key: "c542e371-4351-4878-9725-ce28c7995d0c", ...data }),
+    }),
+    fetch("https://script.google.com/macros/s/AKfycbxdcZ2swUxMnrsqGb_DRSofVQxo0HH-1fJDVlUheGXDV61qPAs5fHpfIGlRgQS8MGLf/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }),
+  ]);
+}
+
 function Contact() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+    const fd = new FormData(e.currentTarget);
+    try {
+      await submitContact({
+        name: fd.get("name") as string,
+        company: fd.get("company") as string,
+        email: fd.get("email") as string,
+        service: fd.get("service") as string,
+        message: fd.get("message") as string,
+      });
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <PageShell>
@@ -50,11 +86,8 @@ function Contact() {
           </div>
         </div>
 
-        <form
-          onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-          className="doodle-card p-7 sm:p-8 space-y-4"
-        >
-          {sent ? (
+        <form onSubmit={handleSubmit} className="doodle-card p-7 sm:p-8 space-y-4">
+          {status === "success" ? (
             <div className="py-12 text-center">
               <div className="text-6xl mb-3">📬</div>
               <p className="font-display text-3xl">Sent! I'll reply within 24h.</p>
@@ -65,7 +98,7 @@ function Contact() {
               <Field label="Company"><input required name="company" className="form-input" /></Field>
               <Field label="Email"><input required type="email" name="email" className="form-input" /></Field>
               <Field label="What do you need?">
-                <select name="need" className="form-input" defaultValue="">
+                <select name="service" className="form-input" defaultValue="">
                   <option value="" disabled>Pick one…</option>
                   <option>Cold Email Campaigns</option>
                   <option>Meeting Setting</option>
@@ -78,8 +111,15 @@ function Contact() {
               <Field label="Message">
                 <textarea required name="message" rows={4} className="form-input" />
               </Field>
-              <button type="submit" className="btn-doodle btn-orange font-display text-xl w-full justify-center">
-                Send it →
+              {status === "error" && (
+                <p className="text-sm text-red-600">Something went wrong — try emailing me directly.</p>
+              )}
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="btn-doodle btn-orange font-display text-xl w-full justify-center disabled:opacity-60"
+              >
+                {status === "sending" ? "Sending…" : "Send it →"}
               </button>
             </>
           )}
