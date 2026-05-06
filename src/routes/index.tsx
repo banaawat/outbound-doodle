@@ -110,7 +110,7 @@ function Home() {
 
           <div className="mt-14 flex items-center gap-3 text-foreground">
             <DoodleArrow className="w-10 h-12 text-secondary" />
-            <span className="font-display text-2xl sm:text-3xl">trusted by teams at</span>
+            <span className="font-display text-2xl sm:text-3xl">meetings booked with</span>
           </div>
         </div>
       </section>
