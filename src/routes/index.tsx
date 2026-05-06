@@ -89,8 +89,8 @@ function Home() {
               {/* quick stat strip */}
               <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { v: "$150K+", l: "pipeline generated" },
-                  { v: "80+", l: "SQLs booked" },
+                  { v: "$1M+", l: "pipeline generated" },
+                  { v: "150+", l: "SQLs booked" },
                   { v: "7%", l: "avg reply rate" },
                   { v: "14 days", l: "to first meeting" },
                 ].map((s) => (
