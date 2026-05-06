@@ -185,7 +185,7 @@ function Resources() {
       <section className="border-b-2 border-dashed border-foreground/30 bg-[color-mix(in_oklab,var(--accent)_18%,white)]">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-12">
           <div className="grid lg:grid-cols-12 gap-8 items-end">
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-12">
               <span className="pill mb-5 inline-flex" style={{ background: "white" }}>
                 🎁 Free · No email required · {RESOURCES.length} resources & counting
               </span>
@@ -215,21 +215,6 @@ function Resources() {
               </div>
             </div>
 
-            {/* Stat strip */}
-            <div className="lg:col-span-4 grid grid-cols-3 gap-3">
-              {[
-                { v: "63k+", l: "monthly readers" },
-                { v: "12k", l: "templates copied" },
-                { v: "4.9★", l: "avg rating" },
-              ].map((s) => (
-                <div key={s.l} className="doodle-card-soft bg-white px-3 py-3 text-center">
-                  <div className="font-serif-d text-2xl text-primary leading-none">{s.v}</div>
-                  <div className="text-[0.65rem] uppercase tracking-wide font-semibold text-muted-foreground mt-1">
-                    {s.l}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -406,7 +391,6 @@ function Resources() {
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-8 items-center">
             <div>
               <img src={brewLogo} alt="The Banaawati Brew" className="h-16 sm:h-20 w-auto mb-4" />
-              <span className="pill mb-3 inline-flex bg-white">📬 12,400+ subscribers</span>
               <h3 className="font-serif-d text-3xl sm:text-4xl leading-tight mb-3">
                 One email a week. Real campaigns. Real numbers.
               </h3>
