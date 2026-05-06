@@ -136,9 +136,13 @@ function Resources() {
               <h2 className="font-serif-d text-3xl sm:text-4xl leading-tight mb-3">{featured.title}</h2>
               <p className="text-foreground/75 text-base leading-relaxed">{featured.desc}</p>
               <div className="mt-6">
-                <a href="#" className="btn-doodle btn-primary font-sans font-bold">
+                <Link
+                  to="/resources/$slug"
+                  params={{ slug: featured.slug }}
+                  className="btn-doodle btn-primary font-sans font-bold"
+                >
                   {featured.cta} →
-                </a>
+                </Link>
               </div>
             </div>
             {/* visual preview block */}
@@ -194,8 +198,10 @@ function Resources() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {grid.map((r) => (
-              <article
+              <Link
                 key={r.title}
+                to="/resources/$slug"
+                params={{ slug: r.slug }}
                 className="doodle-card p-5 flex flex-col bg-card group"
               >
                 <div className="flex items-center justify-between mb-3">
@@ -220,14 +226,14 @@ function Resources() {
                 <h3 className="font-serif-d text-xl leading-tight mb-2">{r.title}</h3>
                 <p className="text-foreground/70 text-sm leading-relaxed flex-1">{r.desc}</p>
                 <div className="mt-4 pt-3 border-t border-dashed border-foreground/20 flex items-center justify-between">
-                  <a href="#" className="font-semibold text-sm text-primary group-hover:underline underline-offset-4">
+                  <span className="font-semibold text-sm text-primary group-hover:underline underline-offset-4">
                     {r.cta} →
-                  </a>
+                  </span>
                   <span className="text-[0.7rem] text-muted-foreground font-mono">
                     {r.reads || r.meta}
                   </span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         )}
