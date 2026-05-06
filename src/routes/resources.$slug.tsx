@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { RESOURCES, CAT_COLOR, TAG_COLOR, type Section } from "@/data/resources";
+import { RESOURCES, CAT_COLOR, TAG_COLOR, type Section, type Resource } from "@/data/resources";
 
 export const Route = createFileRoute("/resources/$slug")({
   loader: ({ params }) => {
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/resources/$slug")({
 });
 
 function ResourcePage() {
-  const { resource: r } = Route.useLoaderData();
+  const { resource: r } = Route.useLoaderData() as { resource: Resource };
   const related = RESOURCES.filter((x) => x.slug !== r.slug && x.cat === r.cat).slice(0, 3);
 
   return (

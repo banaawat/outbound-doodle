@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
+import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -46,6 +47,11 @@ const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
   path: '/resources/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
+  id: '/resources/$slug',
+  path: '/resources/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/proof': typeof ProofRoute
   '/services': typeof ServicesRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/proof': typeof ProofRoute
   '/services': typeof ServicesRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/resources': typeof ResourcesIndexRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/proof': typeof ProofRoute
   '/services': typeof ServicesRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/contact'
     | '/proof'
     | '/services'
+    | '/resources/$slug'
     | '/resources/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/proof' | '/services' | '/resources'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/proof'
+    | '/services'
+    | '/resources/$slug'
+    | '/resources'
   id:
     | '__root__'
     | '/'
@@ -90,6 +107,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/proof'
     | '/services'
+    | '/resources/$slug'
     | '/resources/'
   fileRoutesById: FileRoutesById
 }
@@ -99,6 +117,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ProofRoute: typeof ProofRoute
   ServicesRoute: typeof ServicesRoute
+  ResourcesSlugRoute: typeof ResourcesSlugRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
 }
 
@@ -146,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/$slug': {
+      id: '/resources/$slug'
+      path: '/resources/$slug'
+      fullPath: '/resources/$slug'
+      preLoaderRoute: typeof ResourcesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -155,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ProofRoute: ProofRoute,
   ServicesRoute: ServicesRoute,
+  ResourcesSlugRoute: ResourcesSlugRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
 }
 export const routeTree = rootRouteImport
