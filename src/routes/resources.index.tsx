@@ -2,11 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import brewLogo from "@/assets/logo-brew.png";
+import { RESOURCES, CATS, CAT_COLOR, TAG_COLOR, type Cat } from "@/data/resources";
 
-export const Route = createFileRoute("/resources")({
+export const Route = createFileRoute("/resources/")({
   head: () => ({
     meta: [
-      { title: "Cold Email Templates, Teardowns & Outbound Playbooks | Vansh" },
+      { title: "Cold Email Templates, Teardowns & Outbound Playbooks | Banaawat" },
       {
         name: "description",
         content:
@@ -18,140 +19,6 @@ export const Route = createFileRoute("/resources")({
   }),
   component: Resources,
 });
-
-type Cat = "Templates" | "Teardowns" | "Playbooks" | "Tools" | "Checklists";
-
-type Resource = {
-  cat: Cat;
-  title: string;
-  desc: string;
-  cta: string;
-  meta: string;
-  tag?: "New" | "Popular" | "Updated";
-  reads?: string;
-  featured?: boolean;
-};
-
-const RESOURCES: Resource[] = [
-  {
-    cat: "Teardowns",
-    title: "How a 3-line cold email booked Domino's UAE",
-    desc: "Line-by-line breakdown of the sequence that got an F&B leadership team to ask for a deck. Subject line, opener, CTA, follow-up — and why every word is there.",
-    cta: "Read teardown",
-    meta: "8 min read",
-    tag: "Popular",
-    reads: "12.4k reads",
-    featured: true,
-  },
-  {
-    cat: "Templates",
-    title: "The 3-line cold email formula (5 variants)",
-    desc: "Subject + opener + ask. The exact structure I use for 7%+ reply rates. Fill-in-the-blank variants for SaaS, agencies, services, and dev tools.",
-    cta: "Copy templates",
-    meta: "Google Doc",
-    tag: "Popular",
-    reads: "8.9k copies",
-  },
-  {
-    cat: "Playbooks",
-    title: "ICP definition worksheet (12 questions)",
-    desc: "The 12 questions that force you to get specific about who you're actually selling to. Fill this before you touch Apollo or you'll burn your domain.",
-    cta: "Download PDF",
-    meta: "PDF · 4 pages",
-    reads: "5.2k downloads",
-  },
-  {
-    cat: "Tools",
-    title: "TAM mapping spreadsheet",
-    desc: "Tier (T1/T2/T3) and prioritise accounts before any campaign. Pre-built formulas, sample data, and a scoring rubric you can edit.",
-    cta: "Get the sheet",
-    meta: "Google Sheet",
-    tag: "Updated",
-    reads: "4.1k copies",
-  },
-  {
-    cat: "Templates",
-    title: "5-touch follow-up sequence",
-    desc: "Timing, tone, and what to say when they ghost. Includes the breakup email that pulls 30% of all replies.",
-    cta: "Copy sequence",
-    meta: "Google Doc",
-    reads: "3.8k copies",
-  },
-  {
-    cat: "Playbooks",
-    title: "Outbound stack for zero budget",
-    desc: "Apollo free tier + Clay credits + Claude + a secondary Gmail. The exact stack to run real outbound before you have a budget.",
-    cta: "Read playbook",
-    meta: "12 min read",
-    reads: "6.7k reads",
-  },
-  {
-    cat: "Checklists",
-    title: "Deliverability pre-flight checklist",
-    desc: "SPF, DKIM, DMARC, domain warmup, send volume, blacklists. The 22-point check I run before any new domain sends a single email.",
-    cta: "Get checklist",
-    meta: "PDF · 2 pages",
-    tag: "New",
-    reads: "2.1k downloads",
-  },
-  {
-    cat: "Teardowns",
-    title: "Why this sequence got 14% reply (and 0 unsubs)",
-    desc: "A live campaign for a US dev-tools client. Targeting, copy choices, A/B winner, and what I'd do differently next time.",
-    cta: "Read teardown",
-    meta: "10 min read",
-    reads: "3.4k reads",
-  },
-  {
-    cat: "Tools",
-    title: "Reply-rate calculator",
-    desc: "Plug in volume, reply %, qualification %, and show rate. See exactly how many emails you need to send to hit your meeting target.",
-    cta: "Open calculator",
-    meta: "Google Sheet",
-    reads: "1.9k copies",
-  },
-  {
-    cat: "Checklists",
-    title: "Pre-send copy review (17 points)",
-    desc: "Spam triggers, length, personalization tokens, CTA clarity, mobile rendering. The checklist I run before any sequence goes live.",
-    cta: "Get checklist",
-    meta: "PDF · 2 pages",
-    reads: "1.6k downloads",
-  },
-  {
-    cat: "Playbooks",
-    title: "From 0 → 5 meetings/mo in 30 days",
-    desc: "Week-by-week plan for founders running outbound themselves. Tools, lists, copy, cadence, and the exact daily 90-minute block.",
-    cta: "Read playbook",
-    meta: "15 min read",
-    tag: "New",
-    reads: "2.8k reads",
-  },
-  {
-    cat: "Templates",
-    title: "LinkedIn DM cold opener pack",
-    desc: "12 LinkedIn opener templates that don't sound like every other founder pitching their seed round. With response screenshots.",
-    cta: "Copy openers",
-    meta: "Google Doc",
-    reads: "4.6k copies",
-  },
-];
-
-const CATS: ("All" | Cat)[] = ["All", "Templates", "Teardowns", "Playbooks", "Tools", "Checklists"];
-
-const CAT_COLOR: Record<Cat, string> = {
-  Templates: "var(--secondary)",
-  Teardowns: "var(--primary)",
-  Playbooks: "color-mix(in oklab, var(--primary) 70%, var(--secondary))",
-  Tools: "var(--accent)",
-  Checklists: "color-mix(in oklab, var(--secondary) 60%, var(--accent))",
-};
-
-const TAG_COLOR: Record<NonNullable<Resource["tag"]>, string> = {
-  New: "var(--secondary)",
-  Popular: "var(--primary)",
-  Updated: "var(--accent)",
-};
 
 const POPULAR_TOPICS = [
   "cold email subject lines",
@@ -269,9 +136,13 @@ function Resources() {
               <h2 className="font-serif-d text-3xl sm:text-4xl leading-tight mb-3">{featured.title}</h2>
               <p className="text-foreground/75 text-base leading-relaxed">{featured.desc}</p>
               <div className="mt-6">
-                <a href="#" className="btn-doodle btn-primary font-sans font-bold">
+                <Link
+                  to="/resources/$slug"
+                  params={{ slug: featured.slug }}
+                  className="btn-doodle btn-primary font-sans font-bold"
+                >
                   {featured.cta} →
-                </a>
+                </Link>
               </div>
             </div>
             {/* visual preview block */}
@@ -327,8 +198,10 @@ function Resources() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {grid.map((r) => (
-              <article
+              <Link
                 key={r.title}
+                to="/resources/$slug"
+                params={{ slug: r.slug }}
                 className="doodle-card p-5 flex flex-col bg-card group"
               >
                 <div className="flex items-center justify-between mb-3">
@@ -353,14 +226,14 @@ function Resources() {
                 <h3 className="font-serif-d text-xl leading-tight mb-2">{r.title}</h3>
                 <p className="text-foreground/70 text-sm leading-relaxed flex-1">{r.desc}</p>
                 <div className="mt-4 pt-3 border-t border-dashed border-foreground/20 flex items-center justify-between">
-                  <a href="#" className="font-semibold text-sm text-primary group-hover:underline underline-offset-4">
+                  <span className="font-semibold text-sm text-primary group-hover:underline underline-offset-4">
                     {r.cta} →
-                  </a>
+                  </span>
                   <span className="text-[0.7rem] text-muted-foreground font-mono">
                     {r.reads || r.meta}
                   </span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         )}
