@@ -7,13 +7,25 @@ import { Process } from "@/components/Process";
 import { FAQ } from "@/components/FAQ";
 import emailReply from "@/assets/email-reply.png";
 
+const HOME_TITLE = "Banaawat — B2B Cold Email & Outbound Sales Agency in India";
+const HOME_DESC = "Done-for-you outbound sales for B2B SaaS companies in India. Cold email campaigns, SDR as a service, and pipeline building that books 5–15 qualified meetings per month.";
+const OG_IMAGE = "https://banaawat.com/og-image.png";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vansh — Outbound sales & cold email for B2B SaaS" },
-      { name: "description", content: "I book meetings with brands you've actually heard of. Outbound, cold email, and pipeline generation for Indian B2B SaaS." },
-      { property: "og:title", content: "Vansh — Outbound for B2B SaaS" },
-      { property: "og:description", content: "Cold email, meeting setting, and pipeline generation that actually replies." },
+      { title: HOME_TITLE },
+      { name: "description", content: HOME_DESC },
+      { property: "og:title", content: HOME_TITLE },
+      { property: "og:description", content: HOME_DESC },
+      { property: "og:url", content: "https://banaawat.com/" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:title", content: HOME_TITLE },
+      { name: "twitter:description", content: HOME_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [
+      { rel: "canonical", href: "https://banaawat.com/" },
     ],
   }),
   component: Home,
@@ -25,9 +37,92 @@ const SERVICES_TEASER = [
   { icon: "🗺️", title: "TAM & ICP Mapping", desc: "Know exactly who you're going after, before you send." },
 ];
 
+const JSON_LD = JSON.stringify([
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Banaawat",
+    "url": "https://banaawat.com",
+    "description": "Done-for-you outbound sales and cold email for B2B SaaS companies in India.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Banaawat",
+    "url": "https://banaawat.com",
+    "logo": "https://banaawat.com/og-image.png",
+    "description": "Done-for-you outbound sales, cold email campaigns, and pipeline building for B2B SaaS companies in India.",
+    "founder": { "@type": "Person", "name": "Vansh Mehrotra" },
+    "contactPoint": { "@type": "ContactPoint", "email": "vansh@banaawat.com", "contactType": "sales" },
+    "areaServed": "IN",
+    "sameAs": ["https://linkedin.com/in/vansh"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Vansh Mehrotra",
+    "jobTitle": "Outbound Sales Specialist",
+    "url": "https://banaawat.com/about",
+    "worksFor": { "@type": "Organization", "name": "Banaawat", "url": "https://banaawat.com" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Gurgaon", "addressCountry": "IN" },
+    "sameAs": ["https://linkedin.com/in/vansh"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Cold Email & Outbound Campaigns",
+    "description": "End-to-end cold email campaigns — ICP definition, list building, copywriting, sequencing, and campaign management for B2B SaaS companies in India.",
+    "provider": { "@type": "Organization", "name": "Banaawat", "url": "https://banaawat.com" },
+    "areaServed": "IN",
+    "serviceType": "B2B Cold Email Marketing",
+    "url": "https://banaawat.com/services",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Meeting Setting & Pipeline Generation",
+    "description": "SDR as a service — full outbound motion management delivering booked meetings with qualified B2B prospects in India and the Middle East.",
+    "provider": { "@type": "Organization", "name": "Banaawat", "url": "https://banaawat.com" },
+    "areaServed": "IN",
+    "serviceType": "SDR as a Service",
+    "url": "https://banaawat.com/services",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "TAM Mapping & ICP Research",
+    "description": "Total Addressable Market mapping, buyer persona definition, account tiering, and prospect list building for B2B SaaS companies.",
+    "provider": { "@type": "Organization", "name": "Banaawat", "url": "https://banaawat.com" },
+    "areaServed": "IN",
+    "serviceType": "B2B Sales Research",
+    "url": "https://banaawat.com/services",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Lead Generation & List Building",
+    "description": "Targeted, verified B2B prospect lists built using Apollo, LinkedIn Sales Navigator, and manual research for Indian SaaS companies.",
+    "provider": { "@type": "Organization", "name": "Banaawat", "url": "https://banaawat.com" },
+    "areaServed": "IN",
+    "serviceType": "B2B Lead Generation",
+    "url": "https://banaawat.com/services",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Email Copywriting & Sequence Strategy",
+    "description": "High-converting cold email copy, subject lines, icebreakers, and full sequence strategy for B2B outbound sales.",
+    "provider": { "@type": "Organization", "name": "Banaawat", "url": "https://banaawat.com" },
+    "areaServed": "IN",
+    "serviceType": "Email Copywriting",
+    "url": "https://banaawat.com/services",
+  },
+]);
+
 function Home() {
   return (
     <PageShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON_LD }} />
       {/* HERO */}
       <section className="relative dot-grid overflow-hidden border-b-2 border-dashed border-foreground/80">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-16 relative">

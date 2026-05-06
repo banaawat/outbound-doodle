@@ -3,13 +3,25 @@ import { PageShell } from "@/components/PageShell";
 import { Logos } from "@/components/Logos";
 import emailReply from "@/assets/email-reply.png";
 
+const PROOF_TITLE = "Proof — Real B2B Cold Email Results & Case Studies | Banaawat India";
+const PROOF_DESC = "$1M+ pipeline generated for Indian B2B SaaS. Real replies from Flipkart, ADNOC, KFC, Domino's UAE. 7% reply rate, 150+ qualified meetings booked.";
+const OG_IMAGE = "https://banaawat.com/og-image.png";
+
 export const Route = createFileRoute("/proof")({
   head: () => ({
     meta: [
-      { title: "Social Proof — Real replies, real meetings | Vansh" },
-      { name: "description", content: "Cold email replies from Flipkart, ADNOC, KFC and more. $150K+ pipeline, 7% reply rate, 80+ SQLs." },
-      { property: "og:title", content: "Real replies. Real meetings. Real companies." },
-      { property: "og:description", content: "What outbound looks like when it actually works." },
+      { title: PROOF_TITLE },
+      { name: "description", content: PROOF_DESC },
+      { property: "og:title", content: PROOF_TITLE },
+      { property: "og:description", content: PROOF_DESC },
+      { property: "og:url", content: "https://banaawat.com/proof" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:title", content: PROOF_TITLE },
+      { name: "twitter:description", content: PROOF_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [
+      { rel: "canonical", href: "https://banaawat.com/proof" },
     ],
   }),
   component: Proof,

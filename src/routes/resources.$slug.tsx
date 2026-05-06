@@ -11,12 +11,22 @@ export const Route = createFileRoute("/resources/$slug")({
   head: ({ loaderData }) => {
     const r = loaderData?.resource;
     if (!r) return { meta: [{ title: "Resource not found | Banaawat" }] };
+    const url = `https://banaawat.com/resources/${r.slug}`;
+    const ogImage = "https://banaawat.com/og-image.png";
     return {
       meta: [
         { title: `${r.title} | Banaawat` },
         { name: "description", content: r.desc },
         { property: "og:title", content: r.title },
         { property: "og:description", content: r.desc },
+        { property: "og:url", content: url },
+        { property: "og:image", content: ogImage },
+        { name: "twitter:title", content: r.title },
+        { name: "twitter:description", content: r.desc },
+        { name: "twitter:image", content: ogImage },
+      ],
+      links: [
+        { rel: "canonical", href: url },
       ],
     };
   },

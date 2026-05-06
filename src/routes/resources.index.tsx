@@ -4,17 +4,25 @@ import { PageShell } from "@/components/PageShell";
 import brewLogo from "@/assets/logo-brew.png";
 import { RESOURCES, CATS, CAT_COLOR, TAG_COLOR, type Cat } from "@/data/resources";
 
+const RES_TITLE = "Free Cold Email Templates, ICP Frameworks & Outbound Playbooks | Banaawat";
+const RES_DESC = "Free cold email templates, ICP frameworks, TAM spreadsheets, and deliverability checklists for B2B outbound. Built from real campaigns for Indian SaaS companies.";
+const OG_IMAGE = "https://banaawat.com/og-image.png";
+
 export const Route = createFileRoute("/resources/")({
   head: () => ({
     meta: [
-      { title: "Cold Email Templates, Teardowns & Outbound Playbooks | Banaawat" },
-      {
-        name: "description",
-        content:
-          "Free cold email templates, ICP frameworks, TAM spreadsheets, deliverability checklists, and weekly outbound teardowns. Built from real B2B SaaS campaigns.",
-      },
-      { property: "og:title", content: "The Outbound Library — free templates, teardowns & playbooks" },
-      { property: "og:description", content: "Everything I use to book 80+ meetings a quarter. Free. No email gate." },
+      { title: RES_TITLE },
+      { name: "description", content: RES_DESC },
+      { property: "og:title", content: RES_TITLE },
+      { property: "og:description", content: RES_DESC },
+      { property: "og:url", content: "https://banaawat.com/resources" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:title", content: RES_TITLE },
+      { name: "twitter:description", content: RES_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [
+      { rel: "canonical", href: "https://banaawat.com/resources" },
     ],
   }),
   component: Resources,

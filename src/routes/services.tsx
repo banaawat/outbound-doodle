@@ -1,13 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 
+const SERVICES_TITLE = "Services — Cold Email, SDR as a Service & Pipeline Building in India | Banaawat";
+const SERVICES_DESC = "Cold email campaigns, meeting setting, TAM mapping, lead generation, and email copywriting. Done-for-you outbound sales services for B2B SaaS companies in India.";
+const OG_IMAGE = "https://banaawat.com/og-image.png";
+
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Cold Email, Meeting Setting, TAM Mapping | Vansh" },
-      { name: "description", content: "End-to-end outbound: cold email, meeting setting, TAM mapping, lead generation, and email copywriting for B2B SaaS." },
-      { property: "og:title", content: "Services — Vansh" },
-      { property: "og:description", content: "No vague growth consulting. Here's exactly what you're getting." },
+      { title: SERVICES_TITLE },
+      { name: "description", content: SERVICES_DESC },
+      { property: "og:title", content: SERVICES_TITLE },
+      { property: "og:description", content: SERVICES_DESC },
+      { property: "og:url", content: "https://banaawat.com/services" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:title", content: SERVICES_TITLE },
+      { name: "twitter:description", content: SERVICES_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [
+      { rel: "canonical", href: "https://banaawat.com/services" },
     ],
   }),
   component: Services,

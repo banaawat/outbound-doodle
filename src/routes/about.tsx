@@ -2,13 +2,25 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Star } from "@/components/Squiggle";
 
+const ABOUT_TITLE = "About Vansh Mehrotra — B2B Outbound Sales Specialist | Banaawat";
+const ABOUT_DESC = "Vansh Mehrotra is a Gurgaon-based outbound sales specialist with 3+ years running cold email and LinkedIn campaigns for B2B SaaS across India and the Middle East. $1M+ pipeline generated.";
+const OG_IMAGE = "https://banaawat.com/og-image.png";
+
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Vansh | Outbound Sales Specialist" },
-      { name: "description", content: "3+ years running cold email and LinkedIn outbound across India and the Middle East. $150K+ in pipeline generated." },
-      { property: "og:title", content: "About Vansh" },
-      { property: "og:description", content: "The person on the other end of that reply." },
+      { title: ABOUT_TITLE },
+      { name: "description", content: ABOUT_DESC },
+      { property: "og:title", content: ABOUT_TITLE },
+      { property: "og:description", content: ABOUT_DESC },
+      { property: "og:url", content: "https://banaawat.com/about" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:title", content: ABOUT_TITLE },
+      { name: "twitter:description", content: ABOUT_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [
+      { rel: "canonical", href: "https://banaawat.com/about" },
     ],
   }),
   component: About,

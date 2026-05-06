@@ -2,13 +2,25 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 
+const CONTACT_TITLE = "Contact Banaawat — Book a Free Outbound Strategy Call";
+const CONTACT_DESC = "Book a free 20-minute strategy call with Vansh. Outbound sales, cold email, and pipeline building for B2B SaaS founders in India. Reply within 24 hours.";
+const OG_IMAGE = "https://banaawat.com/og-image.png";
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Let's talk pipeline | Vansh" },
-      { name: "description", content: "B2B SaaS founders: book a free 20-minute call to scope outbound, cold email, or meeting setting." },
-      { property: "og:title", content: "Let's talk pipeline." },
-      { property: "og:description", content: "Reply within 24 hours. Outbound that actually works." },
+      { title: CONTACT_TITLE },
+      { name: "description", content: CONTACT_DESC },
+      { property: "og:title", content: CONTACT_TITLE },
+      { property: "og:description", content: CONTACT_DESC },
+      { property: "og:url", content: "https://banaawat.com/contact" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:title", content: CONTACT_TITLE },
+      { name: "twitter:description", content: CONTACT_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [
+      { rel: "canonical", href: "https://banaawat.com/contact" },
     ],
   }),
   component: Contact,
