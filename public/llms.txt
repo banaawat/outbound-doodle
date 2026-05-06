@@ -1,0 +1,80 @@
+# Banaawat
+
+> Done-for-you outbound sales and cold email for B2B SaaS. Vansh books qualified meetings with decision-makers at companies you've actually heard of.
+
+Banaawat is run by Vansh, an outbound sales specialist based in Gurgaon, India, with 3+ years running cold email and LinkedIn campaigns across India and the Middle East. He has generated $1M+ in pipeline, booked 150+ sales-qualified meetings, and achieved a 7% average reply rate (industry average: 2–3%).
+
+## What Banaawat Does
+
+End-to-end outbound sales as a service for B2B SaaS companies. Vansh handles the full outbound motion — ICP research, list building, copywriting, sequencing, follow-ups, and meeting coordination — so founders and sales teams can focus on closing, not prospecting.
+
+## Services
+
+### Cold Email & Outbound Campaigns
+Full-cycle cold email campaigns: ICP definition, prospect list building (100–500 contacts), 3-step email sequences, A/B testing, and weekly reporting. Emails are written to sound human, not templated.
+
+### Meeting Setting & Pipeline Generation
+Vansh runs the entire outbound motion and delivers booked meetings with qualified prospects. Includes prospect research, personalised outreach, follow-up sequences, meeting coordination, and CRM logging. Best for: founders or AEs who need pipeline but don't have an SDR yet.
+
+### TAM Mapping & ICP Research
+Total Addressable Market mapping from scratch — industry and company segmentation, buyer persona definition, account tiering (T1/T2/T3), competitor landscape, and exported prospect list. Best for: companies entering a new market or vertical.
+
+### Lead Generation & List Building
+Targeted, verified prospect lists using Apollo.io, LinkedIn Sales Navigator, and manual research. Every lead is filtered, enriched, and relevant to the ICP. Includes email verification, LinkedIn/Apollo enrichment, and custom fields (funding, headcount, tech stack).
+
+### Email Copywriting & Sequence Strategy
+High-converting cold email copy: icebreakers that reference real context, CTAs that don't sound desperate, PS lines people read. Includes full sequence strategy — timing, touchpoints, channel mix (email + LinkedIn).
+
+## Ideal Client Profile (ICP)
+
+- B2B SaaS companies based in India
+- Founders with a product but no outbound motion yet
+- Sales teams who need more pipeline, not more advice
+- Selling to enterprise or mid-market segments
+- Typically seed to Series B stage
+
+## Results
+
+- $1M+ pipeline generated across clients
+- 150+ sales-qualified meetings booked
+- 7% average reply rate (industry average: 2–3%)
+- 500+ accounts targeted
+- First meeting typically delivered within 14 days
+
+## Case Studies
+
+### Domino's UAE — F&B SaaS, Middle East
+Challenge: F&B SaaS founder wanted to break into Middle East QSR chains with zero pipeline and zero brand recognition.
+Approach: Mapped 80 QSR accounts across UAE and KSA. Wrote a 3-step sequence built around a region-specific insight, not a feature pitch.
+Result: 5 replies in week 1. Domino's UAE looped in leadership and asked for a deck. Pipeline value ~$45K.
+
+### Indian B2B SaaS — Reply Rate Improvement
+Challenge: Mid-stage SaaS stuck under 2% reply rate on cold campaigns. Sequences were generic, list was bloated.
+Approach: Cut the prospect list by 60%. Rewrote sequences with persona-specific icebreakers. Added LinkedIn as second channel.
+Result: Reply rate jumped from 2% to 7% in 6 weeks. SQLs per month tripled. Founder cancelled their SDR agency.
+
+### Indian Fintech — Bank Sales
+Challenge: Fintech wanted to sell a compliance tool to private banks. Long sales cycles, hard to reach compliance heads.
+Approach: Built tiered TAM of 40 banks. Researched each compliance head individually. Wrote 1:1 personalised first emails — no templates.
+Result: 12 booked meetings in 60 days. 3 moved to procurement stage.
+
+## Newsletter — The Banaawati Brew
+
+Weekly newsletter covering what's working in outbound right now. Includes cold email subject lines, teardowns of real campaigns with real numbers, new templates each week, and anonymised reply screenshots. Free to subscribe.
+
+Subscribe: https://banaawat.com/resources#newsletter
+
+## Contact
+
+Email: vansh@banaawat.com
+LinkedIn: https://linkedin.com/in/vansh
+
+## Pages
+
+- Home: https://banaawat.com/
+- Services: https://banaawat.com/services
+- Proof & Case Studies: https://banaawat.com/proof
+- Resources & Free Templates: https://banaawat.com/resources
+- About: https://banaawat.com/about
+- Contact: https://banaawat.com/contact
+- Machine-readable summary: https://banaawat.com/llms.txt
