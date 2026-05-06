@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageShell } from "@/components/PageShell";
+import brewLogo from "@/assets/logo-brew.png";
 
 export const Route = createFileRoute("/resources")({
   head: () => ({
