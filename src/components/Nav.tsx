@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import logo from "@/assets/logo-banaawat.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -16,8 +17,8 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-50 bg-background/90 backdrop-blur border-b-2 border-dashed border-foreground/80">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-        <Link to="/" className="font-display text-3xl font-bold text-primary leading-none">
-          vansh<span className="text-secondary">.</span>
+        <Link to="/" className="flex items-center" aria-label="Banaawat home">
+          <img src={logo} alt="Banaawat" className="h-9 sm:h-10 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-7">

@@ -96,26 +96,6 @@ function About() {
         </div>
       </section>
 
-      {/* TIMELINE */}
-      <section className="max-w-4xl mx-auto px-5 sm:px-8 pb-20">
-        <h2 className="font-display text-5xl sm:text-6xl mb-8">
-          The <span className="squiggle-blue">short</span> version of how I got here.
-        </h2>
-        <div className="relative pl-6 sm:pl-10 border-l-2 border-dashed border-foreground/60 space-y-8">
-          {TIMELINE.map((t, i) => (
-            <div key={t.y} className="relative">
-              <div
-                className="absolute -left-[34px] sm:-left-[50px] top-1 w-5 h-5 rounded-full border-2 border-foreground"
-                style={{ background: i % 2 ? "var(--secondary)" : "var(--primary)" }}
-              />
-              <div className="font-display text-3xl text-secondary">{t.y}</div>
-              <div className="font-serif-d text-2xl mb-1">{t.title}</div>
-              <p className="text-foreground/75 leading-relaxed">{t.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* PRINCIPLES */}
       <section className="max-w-5xl mx-auto px-5 sm:px-8 pb-20">
         <h2 className="font-display text-5xl sm:text-6xl mb-2">
