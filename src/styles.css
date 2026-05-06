@@ -99,22 +99,22 @@
 
   /* Wavy underline (SVG inline) */
   .squiggle {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'><path d='M0 6 Q 15 0 30 6 T 60 6 T 90 6 T 120 6' fill='none' stroke='%23FF6B2B' stroke-width='3' stroke-linecap='round'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'><path d='M2 6 Q 15 0 30 6 T 60 6 T 90 6 T 118 6' fill='none' stroke='%23FF6B2B' stroke-width='3' stroke-linecap='round'/></svg>");
     background-repeat: no-repeat;
-    background-position: 0 calc(100% + 0.18em);
-    background-size: 100% 0.3em;
-    padding-bottom: 0.35em;
+    background-position: 0 100%;
+    background-size: 100% 0.4em;
+    padding-bottom: 0.5em;
     display: inline-block;
-    line-height: 1.1;
+    line-height: 1.15;
   }
   .squiggle-blue {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'><path d='M0 6 Q 15 0 30 6 T 60 6 T 90 6 T 120 6' fill='none' stroke='%231B6FEB' stroke-width='3' stroke-linecap='round'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'><path d='M2 6 Q 15 0 30 6 T 60 6 T 90 6 T 118 6' fill='none' stroke='%231B6FEB' stroke-width='3' stroke-linecap='round'/></svg>");
     background-repeat: no-repeat;
-    background-position: 0 calc(100% + 0.18em);
-    background-size: 100% 0.3em;
-    padding-bottom: 0.35em;
+    background-position: 0 100%;
+    background-size: 100% 0.4em;
+    padding-bottom: 0.5em;
     display: inline-block;
-    line-height: 1.1;
+    line-height: 1.15;
   }
 
   /* Sketchy dashed card */
