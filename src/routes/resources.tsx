@@ -404,6 +404,7 @@ function Resources() {
         >
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-8 items-center">
             <div>
+              <img src={brewLogo} alt="The Banaawati Brew" className="h-16 sm:h-20 w-auto mb-4" />
               <span className="pill mb-3 inline-flex bg-white">📬 12,400+ subscribers</span>
               <h3 className="font-serif-d text-3xl sm:text-4xl leading-tight mb-3">
                 One email a week. Real campaigns. Real numbers.
