@@ -44,10 +44,10 @@ export function Footer() {
           Booking meetings. Building pipeline.
         </p>
         <div className="flex items-center gap-3">
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-doodle py-2 px-3" aria-label="LinkedIn">
+          <a href="https://linkedin.com/in/vansh-mehrotra" target="_blank" rel="noreferrer" className="btn-doodle py-2 px-3" aria-label="LinkedIn">
             in
           </a>
-          <a href="mailto:vansh@example.com" className="btn-doodle py-2 px-3" aria-label="Email">
+          <a href="mailto:vansh@banaawat.com" className="btn-doodle py-2 px-3" aria-label="Email">
             ✉
           </a>
         </div>
@@ -72,7 +72,7 @@ export function Footer() {
       </div>
 
       <div className="text-center pb-6 text-xs text-muted-foreground">
-        © 2025 Vansh · Built for outbound, not for fun
+        © 2026 Vansh · Built for outbound, not for fun
       </div>
     </footer>
   );
