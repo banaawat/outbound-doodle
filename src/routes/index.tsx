@@ -211,15 +211,16 @@ function Home() {
             </div>
           </div>
 
-          <div className="mt-14 flex items-center gap-3 text-foreground">
-            <DoodleArrow className="w-10 h-12 text-secondary" />
-            <span className="font-display text-2xl sm:text-3xl">meetings booked with</span>
-          </div>
         </div>
       </section>
 
       {/* LOGOS */}
-      <section className="max-w-6xl mx-auto px-5 sm:px-8 pb-16">
+      <section className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-16">
+        <div className="flex flex-col items-center text-center mb-8">
+          <span className="font-display text-3xl sm:text-4xl text-foreground">
+            Meetings booked <span className="squiggle-blue">with</span>
+          </span>
+        </div>
         <Logos />
         <p className="text-center font-display text-2xl text-muted-foreground mt-6">…and counting</p>
       </section>
