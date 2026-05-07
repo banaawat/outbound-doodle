@@ -72,7 +72,7 @@ function About() {
             I'm Vansh — an outbound specialist with 3+ years running cold email and LinkedIn campaigns across India and the Middle East.
           </p>
           <p>
-            I've generated <span className="highlight">$150K+ in pipeline</span>, booked meetings with Flipkart, ADNOC, KFC, McDonald's, and Emirates NBD, and taken reply rates from 4% to 7% across 500+ targeted accounts.
+            I've generated <span className="highlight">$1M+ in pipeline</span>, booked meetings with Flipkart, ADNOC, KFC, McDonald's, and Emirates NBD, and taken reply rates from 4% to 7% across 500+ targeted accounts.
           </p>
           <p>
             I've been the person building the sequences, writing the copy, mapping the TAM, and managing the entire outbound motion — not just advising on it.
