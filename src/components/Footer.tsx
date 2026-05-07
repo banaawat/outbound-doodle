@@ -60,15 +60,16 @@ export function Footer() {
       </div>
 
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-6 flex flex-col sm:flex-row items-center justify-center gap-3 border-t border-dashed border-foreground/20 pt-5">
-        <span className="text-xs text-muted-foreground font-medium tracking-wide uppercase">Read by AI</span>
+        <span className="text-xs text-muted-foreground font-medium tracking-wide uppercase">Ask AI about Banaawat</span>
         <div className="flex items-center gap-3">
-          {AI_LOGOS.map(({ name, svg }) => (
+          {AI_LOGOS.map(({ name, svg, href }) => (
             <a
               key={name}
-              href="https://banaawat.com/llms.txt"
+              href={href}
               target="_blank"
               rel="noreferrer"
-              title={name}
+              title={`Ask ${name} about Banaawat`}
+              aria-label={`Ask ${name} about Banaawat`}
               className="text-foreground/40 hover:text-foreground/80 transition-colors"
             >
               {svg}
