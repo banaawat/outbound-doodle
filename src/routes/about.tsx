@@ -27,9 +27,9 @@ export const Route = createFileRoute("/about")({
 });
 
 const STATS = [
-  { v: "$150K+", l: "Pipeline Generated" },
-  { v: "80+", l: "SQLs Delivered" },
-  { v: "500+", l: "Accounts Targeted" },
+  { v: "$1M+", l: "Pipeline Generated" },
+  { v: "150+", l: "SQLs Delivered" },
+  { v: "14 days", l: "To First Meeting Booked" },
   { v: "7%", l: "Reply Rate Achieved" },
 ];
 
