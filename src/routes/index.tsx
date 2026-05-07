@@ -55,7 +55,11 @@ const JSON_LD = JSON.stringify([
     "founder": { "@type": "Person", "name": "Vansh Mehrotra" },
     "contactPoint": { "@type": "ContactPoint", "email": "vansh@banaawat.com", "contactType": "sales" },
     "areaServed": "IN",
-    "sameAs": ["https://linkedin.com/in/vansh"],
+    "sameAs": [
+      "https://www.linkedin.com/company/banaawat",
+      "https://twitter.com/banaawat",
+      "https://www.instagram.com/banaawat",
+    ],
   },
   {
     "@context": "https://schema.org",
@@ -131,10 +135,14 @@ function Home() {
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 mb-6 pill" style={{ background: "var(--card)" }}>
                 <span className="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse" />
-                <span className="font-semibold tracking-wide uppercase text-xs">Outbound for B2B SaaS · 80+ meetings booked</span>
+                <span className="font-semibold tracking-wide uppercase text-xs">Outbound sales India · 80+ meetings booked</span>
               </div>
 
-              <h1 className="font-serif-d text-[clamp(2.5rem,6vw,5rem)] leading-[0.98] tracking-tight">
+              <h1 className="font-serif-d text-[clamp(1.6rem,4vw,3rem)] leading-[1.1] tracking-tight mb-3 text-foreground/80">
+                B2B Cold Email &amp; Outbound Sales Agency in India
+              </h1>
+
+              <p className="font-serif-d text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
                 Cold email that books{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-primary">qualified meetings</span>
@@ -143,10 +151,10 @@ function Home() {
                   </svg>
                 </span>
                 {" "}— not unsubscribes.
-              </h1>
+              </p>
 
               <p className="mt-6 max-w-xl text-lg sm:text-xl text-foreground/80 font-sans leading-snug">
-                I run done-for-you outbound that puts <strong>5–15 sales-qualified meetings</strong> on your calendar every month. No retainers locked behind 6-month contracts. No spray-and-pray.
+                India's B2B cold email agency for SaaS founders — done-for-you outbound that puts <strong>5–15 sales-qualified meetings</strong> on your calendar every month. No retainers locked behind 6-month contracts. No spray-and-pray.
               </p>
 
               {/* Value bullets */}

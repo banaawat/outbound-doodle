@@ -71,7 +71,7 @@ function Services() {
           What I <span className="squiggle">actually</span> do.
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          No vague "growth consulting". Here's exactly what you're getting.
+          No vague "growth consulting". Here's exactly what you're getting from a B2B cold email agency built for outbound sales India.
         </p>
       </section>
 
