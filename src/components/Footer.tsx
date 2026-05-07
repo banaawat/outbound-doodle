@@ -44,7 +44,7 @@ export function Footer() {
           Booking meetings. Building pipeline.
         </p>
         <div className="flex items-center gap-3">
-          <a href="https://linkedin.com/in/vansh-mehrotra" target="_blank" rel="noreferrer" className="btn-doodle py-2 px-3" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/vanshmehrotra/" target="_blank" rel="noreferrer" className="btn-doodle py-2 px-3" aria-label="LinkedIn">
             in
           </a>
           <a href="mailto:vansh@banaawat.com" className="btn-doodle py-2 px-3" aria-label="Email">
