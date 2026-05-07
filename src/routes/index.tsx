@@ -210,7 +210,6 @@ function Home() {
               <SalesPipeline />
             </div>
           </div>
-
         </div>
       </section>
 
