@@ -136,7 +136,7 @@ function Resources() {
               <div className="flex items-center gap-2 mb-4">
                 <span
                   className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded"
-                  style={{ background: CAT_COLOR[featured.cat], color: "white" }}
+                  style={{ background: CAT_COLOR[featured.cat as Cat], color: "white" }}
                 >
                   {featured.cat}
                 </span>
