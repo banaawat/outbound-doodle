@@ -59,19 +59,25 @@ export const Route = createFileRoute("/resources/$slug")({
 });
 
 function mapRow(row: any): RemoteResource {
+  const reads = row.reads ?? 0;
+  const copies = row.copies ?? 0;
+  const metricLabel =
+    reads > 0 ? `${reads.toLocaleString()} reads`
+    : copies > 0 ? `${copies.toLocaleString()} copies`
+    : (row.meta ?? "");
   return {
-    slug: row.slug,
-    cat: row.cat,
+    slug: row.slug ?? row.id,
+    cat: row.cat ?? row.category,
     title: row.title,
-    desc: row.desc ?? "",
+    desc: row.desc ?? row.description ?? "",
     cta: row.cta ?? "Read more",
-    meta: row.meta ?? "",
-    tag: row.tag ?? (row.is_new ? "New" : undefined),
-    reads: row.reads ?? undefined,
+    meta: row.meta ?? metricLabel,
+    tag: row.tag ?? (row.is_new ? "New" : row.popular ? "Popular" : undefined),
+    reads: reads || copies || undefined,
     featured: !!row.featured,
     body: (row.body as Section[]) ?? [],
     whatsInside: row.whats_inside ?? undefined,
-    faq: row.faq ?? undefined,
+    faq: row.faq ?? row.faqs ?? undefined,
     isNew: !!row.is_new,
     orderIndex: row.order_index ?? undefined,
     secondaryCta: row.secondary_cta ?? null,
@@ -95,7 +101,7 @@ function ResourcePage() {
         const { data, error } = await supabase
           .from("resources")
           .select("*")
-          .eq("slug", slug)
+          .eq("id", slug)
           .eq("status", "published")
           .maybeSingle();
         if (cancelled) return;
@@ -113,7 +119,7 @@ function ResourcePage() {
       .channel(`resource-${slug}`)
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "resources", filter: `slug=eq.${slug}` },
+        { event: "*", schema: "public", table: "resources", filter: `id=eq.${slug}` },
         () => load(),
       )
       .subscribe();
