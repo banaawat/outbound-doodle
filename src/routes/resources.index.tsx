@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import brewLogo from "@/assets/logo-brew.png";
-import { RESOURCES, CATS, CAT_COLOR, TAG_COLOR, type Cat } from "@/data/resources";
+import { CATS, CAT_COLOR, TAG_COLOR, type Cat } from "@/data/resources";
+import { useResources } from "@/lib/useResources";
 
 const RES_TITLE = "Free Cold Email Templates, ICP Frameworks & Outbound Playbooks | Banaawat";
 const RES_DESC = "Free cold email templates, ICP frameworks, TAM spreadsheets, and deliverability checklists for B2B outbound. Built from real campaigns for Indian SaaS companies.";
@@ -42,6 +43,7 @@ const POPULAR_TOPICS = [
 function Resources() {
   const [cat, setCat] = useState<"All" | Cat>("All");
   const [q, setQ] = useState("");
+  const { resources: RESOURCES, popularSearches, loading } = useResources();
 
   const filtered = useMemo(() => {
     return RESOURCES.filter((r) => {
@@ -49,9 +51,9 @@ function Resources() {
       if (q && !(r.title + r.desc).toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
-  }, [cat, q]);
+  }, [cat, q, RESOURCES]);
 
-  const featured = RESOURCES.find((r) => r.featured)!;
+  const featured = RESOURCES.find((r) => r.featured) ?? RESOURCES[0];
   const grid = filtered.filter((r) => !r.featured);
 
   return (
@@ -134,7 +136,7 @@ function Resources() {
               <div className="flex items-center gap-2 mb-4">
                 <span
                   className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded"
-                  style={{ background: CAT_COLOR[featured.cat], color: "white" }}
+                  style={{ background: CAT_COLOR[featured.cat as Cat], color: "white" }}
                 >
                   {featured.cat}
                 </span>
@@ -198,7 +200,24 @@ function Resources() {
           )}
         </div>
 
-        {grid.length === 0 ? (
+        {loading ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="doodle-card p-5 flex flex-col animate-pulse"
+                style={{ background: "color-mix(in oklab, var(--accent) 14%, white)", minHeight: 220 }}
+              >
+                <div className="h-4 w-20 rounded bg-foreground/10 mb-4" />
+                <div className="h-6 w-3/4 rounded bg-foreground/10 mb-2" />
+                <div className="h-6 w-2/3 rounded bg-foreground/10 mb-4" />
+                <div className="h-3 w-full rounded bg-foreground/10 mb-1.5" />
+                <div className="h-3 w-5/6 rounded bg-foreground/10 mb-1.5" />
+                <div className="h-3 w-4/6 rounded bg-foreground/10" />
+              </div>
+            ))}
+          </div>
+        ) : grid.length === 0 ? (
           <div className="doodle-card-soft p-10 text-center bg-card">
             <p className="font-display text-2xl mb-2">Nothing matches that yet.</p>
             <p className="text-muted-foreground">Try a different keyword or category.</p>
@@ -207,7 +226,7 @@ function Resources() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {grid.map((r) => (
               <Link
-                key={r.title}
+                key={r.slug}
                 to="/resources/$slug"
                 params={{ slug: r.slug }}
                 className="doodle-card p-5 flex flex-col bg-card group"
@@ -216,7 +235,7 @@ function Resources() {
                   <span
                     className="text-[0.65rem] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
                     style={{
-                      background: CAT_COLOR[r.cat],
+                      background: CAT_COLOR[r.cat as Cat],
                       color: r.cat === "Tools" ? "var(--ink)" : "white",
                     }}
                   >
@@ -225,7 +244,7 @@ function Resources() {
                   {r.tag && (
                     <span
                       className="text-[0.65rem] font-bold uppercase tracking-wider px-2 py-0.5 rounded border-2"
-                      style={{ borderColor: TAG_COLOR[r.tag], color: TAG_COLOR[r.tag] }}
+                      style={{ borderColor: TAG_COLOR[r.tag as NonNullable<typeof r.tag>], color: TAG_COLOR[r.tag as NonNullable<typeof r.tag>] }}
                     >
                       {r.tag}
                     </span>
@@ -251,13 +270,13 @@ function Resources() {
       <section className="max-w-6xl mx-auto px-5 sm:px-8 pb-14">
         <h2 className="font-display text-3xl mb-4">Popular searches</h2>
         <div className="flex flex-wrap gap-2">
-          {POPULAR_TOPICS.map((t) => (
+          {popularSearches.map((t) => (
             <button
-              key={t}
-              onClick={() => setQ(t)}
+              key={(t.id ?? t.label) as React.Key}
+              onClick={() => setQ(t.query ?? t.label)}
               className="pill bg-card hover:-translate-y-0.5 transition-transform"
             >
-              {t}
+              {t.label}
             </button>
           ))}
         </div>

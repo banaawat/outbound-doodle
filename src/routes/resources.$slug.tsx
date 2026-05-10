@@ -1,18 +1,23 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { PageShell } from "@/components/PageShell";
-import { RESOURCES, CAT_COLOR, TAG_COLOR, type Section, type Resource } from "@/data/resources";
+import { RESOURCES, CAT_COLOR, TAG_COLOR, type Section, type Resource, type Cat } from "@/data/resources";
+import { CanvasRenderer } from "@/components/CanvasRenderer";
+import { supabase } from "@/lib/supabase";
+import type { RemoteResource } from "@/lib/useResources";
 
 export const Route = createFileRoute("/resources/$slug")({
-  loader: ({ params }) => {
-    const resource = RESOURCES.find((r) => r.slug === params.slug);
-    if (!resource) throw notFound();
-    return { resource };
-  },
-  head: ({ loaderData }) => {
-    const r = loaderData?.resource;
-    if (!r) return { meta: [{ title: "Resource not found | Banaawat" }] };
-    const url = `https://banaawat.com/resources/${r.slug}`;
+  loader: ({ params }) => ({ slug: params.slug }),
+  head: ({ params }) => {
+    const r = RESOURCES.find((x) => x.slug === params.slug);
+    const url = `https://banaawat.com/resources/${params.slug}`;
     const ogImage = "https://banaawat.com/og-image.png";
+    if (!r) {
+      return {
+        meta: [{ title: `${params.slug} | Banaawat` }],
+        links: [{ rel: "canonical", href: url }],
+      };
+    }
     return {
       meta: [
         { title: `${r.title} | Banaawat` },
@@ -25,22 +30,9 @@ export const Route = createFileRoute("/resources/$slug")({
         { name: "twitter:description", content: r.desc },
         { name: "twitter:image", content: ogImage },
       ],
-      links: [
-        { rel: "canonical", href: url },
-      ],
+      links: [{ rel: "canonical", href: url }],
     };
   },
-  notFoundComponent: () => (
-    <PageShell>
-      <section className="max-w-3xl mx-auto px-5 sm:px-8 py-24 text-center">
-        <h1 className="font-display text-5xl mb-4">Not in the library yet.</h1>
-        <p className="text-muted-foreground mb-6">That resource doesn't exist (or got renamed).</p>
-        <Link to="/resources" className="btn-doodle btn-primary font-sans font-bold">
-          ← Back to all resources
-        </Link>
-      </section>
-    </PageShell>
-  ),
   errorComponent: ({ error }) => (
     <PageShell>
       <section className="max-w-3xl mx-auto px-5 sm:px-8 py-24 text-center">
@@ -52,16 +44,123 @@ export const Route = createFileRoute("/resources/$slug")({
       </section>
     </PageShell>
   ),
+  notFoundComponent: () => (
+    <PageShell>
+      <section className="max-w-3xl mx-auto px-5 sm:px-8 py-24 text-center">
+        <h1 className="font-display text-5xl mb-4">Not in the library yet.</h1>
+        <p className="text-muted-foreground mb-6">That resource doesn't exist (or got renamed).</p>
+        <Link to="/resources" className="btn-doodle btn-primary font-sans font-bold">
+          ← Back to all resources
+        </Link>
+      </section>
+    </PageShell>
+  ),
   component: ResourcePage,
 });
 
+function mapRow(row: any): RemoteResource {
+  return {
+    slug: row.slug,
+    cat: row.cat,
+    title: row.title,
+    desc: row.desc ?? "",
+    cta: row.cta ?? "Read more",
+    meta: row.meta ?? "",
+    tag: row.tag ?? (row.is_new ? "New" : undefined),
+    reads: row.reads ?? undefined,
+    featured: !!row.featured,
+    body: (row.body as Section[]) ?? [],
+    whatsInside: row.whats_inside ?? undefined,
+    faq: row.faq ?? undefined,
+    isNew: !!row.is_new,
+    orderIndex: row.order_index ?? undefined,
+    secondaryCta: row.secondary_cta ?? null,
+    secondaryCtaUrl: row.secondary_cta_url ?? null,
+    canvasData: row.canvas_data ?? null,
+    dateAdded: row.date_added ?? null,
+    status: row.status ?? "published",
+  };
+}
+
 function ResourcePage() {
-  const { resource: r } = Route.useLoaderData() as { resource: Resource };
+  const { slug } = Route.useLoaderData() as { slug: string };
+  const fallback = RESOURCES.find((x) => x.slug === slug) as Resource | undefined;
+  const [r, setR] = useState<RemoteResource | Resource | null>(fallback ?? null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      try {
+        const { data, error } = await supabase
+          .from("resources")
+          .select("*")
+          .eq("slug", slug)
+          .eq("status", "published")
+          .maybeSingle();
+        if (cancelled) return;
+        if (error) throw error;
+        if (data) setR(mapRow(data));
+        else if (!fallback) setR(null);
+      } catch (e) {
+        console.error("Supabase fetch failed:", e);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    load();
+    const channel = supabase
+      .channel(`resource-${slug}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "resources", filter: `slug=eq.${slug}` },
+        () => load(),
+      )
+      .subscribe();
+    return () => {
+      cancelled = true;
+      supabase.removeChannel(channel);
+    };
+  }, [slug]);
+
+  if (loading && !r) {
+    return (
+      <PageShell>
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 animate-pulse">
+          <div className="h-4 w-24 bg-foreground/10 rounded mb-6" />
+          <div className="h-12 w-3/4 bg-foreground/10 rounded mb-4" />
+          <div className="h-5 w-full bg-foreground/10 rounded mb-2" />
+          <div className="h-5 w-5/6 bg-foreground/10 rounded mb-6" />
+          <div className="h-40 w-full bg-foreground/10 rounded" />
+        </div>
+      </PageShell>
+    );
+  }
+
+  if (!r) {
+    return (
+      <PageShell>
+        <section className="max-w-3xl mx-auto px-5 sm:px-8 py-24 text-center">
+          <h1 className="font-display text-5xl mb-4">Not in the library yet.</h1>
+          <p className="text-muted-foreground mb-6">That resource doesn't exist (or got renamed).</p>
+          <Link to="/resources" className="btn-doodle btn-primary font-sans font-bold">
+            ← Back to all resources
+          </Link>
+        </section>
+      </PageShell>
+    );
+  }
+
+  const remote = r as RemoteResource;
+  const canvasBlocks =
+    remote.canvasData && Array.isArray(remote.canvasData?.blocks)
+      ? remote.canvasData.blocks
+      : null;
+
   const related = RESOURCES.filter((x) => x.slug !== r.slug && x.cat === r.cat).slice(0, 3);
 
   return (
     <PageShell>
-      {/* Header */}
       <section
         className="border-b-2 border-dashed border-foreground/30"
         style={{ background: "color-mix(in oklab, var(--accent) 14%, white)" }}
@@ -76,14 +175,14 @@ function ResourcePage() {
           <div className="flex flex-wrap items-center gap-2 mt-5 mb-4">
             <span
               className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded"
-              style={{ background: CAT_COLOR[r.cat], color: r.cat === "Tools" ? "var(--ink)" : "white" }}
+              style={{ background: CAT_COLOR[r.cat as Cat], color: r.cat === "Tools" ? "var(--ink)" : "white" }}
             >
               {r.cat}
             </span>
             {r.tag && (
               <span
                 className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded border-2"
-                style={{ borderColor: TAG_COLOR[r.tag], color: TAG_COLOR[r.tag] }}
+                style={{ borderColor: TAG_COLOR[r.tag as NonNullable<typeof r.tag>], color: TAG_COLOR[r.tag as NonNullable<typeof r.tag>] }}
               >
                 {r.tag}
               </span>
@@ -100,6 +199,14 @@ function ResourcePage() {
             <a href="#" className="btn-doodle btn-primary font-sans font-bold">
               {r.cta} →
             </a>
+            {remote.secondaryCta && (
+              <a
+                href={remote.secondaryCtaUrl ?? "#"}
+                className="btn-doodle font-sans font-bold"
+              >
+                {remote.secondaryCta}
+              </a>
+            )}
             <Link to="/contact" className="btn-doodle font-sans font-bold">
               Have me run this for you
             </Link>
@@ -108,40 +215,45 @@ function ResourcePage() {
       </section>
 
       <div className="max-w-3xl mx-auto px-5 sm:px-8 py-12 grid lg:grid-cols-[1fr_220px] gap-12">
-        {/* Body */}
         <article className="space-y-6">
-          {r.whatsInside && r.whatsInside.length > 0 && (
-            <div className="doodle-card p-6 bg-card not-prose">
-              <div className="font-display text-2xl mb-3">What's inside</div>
-              <ul className="space-y-2">
-                {r.whatsInside.map((it) => (
-                  <li key={it} className="flex items-start gap-3 text-foreground/85">
-                    <span className="mt-1 inline-flex w-5 h-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold flex-shrink-0">
-                      ✓
-                    </span>
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {canvasBlocks ? (
+            <CanvasRenderer blocks={canvasBlocks} />
+          ) : (
+            <>
+              {r.whatsInside && r.whatsInside.length > 0 && (
+                <div className="doodle-card p-6 bg-card not-prose">
+                  <div className="font-display text-2xl mb-3">What's inside</div>
+                  <ul className="space-y-2">
+                    {r.whatsInside.map((it) => (
+                      <li key={it} className="flex items-start gap-3 text-foreground/85">
+                        <span className="mt-1 inline-flex w-5 h-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold flex-shrink-0">
+                          ✓
+                        </span>
+                        <span>{it}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-          {r.body.map((section, i) => (
-            <SectionRender key={i} section={section} />
-          ))}
+              {(r.body ?? []).map((section, i) => (
+                <SectionRender key={i} section={section} />
+              ))}
 
-          {r.faq && r.faq.length > 0 && (
-            <div className="pt-4">
-              <h2 className="font-display text-3xl mb-4">FAQ</h2>
-              <div className="space-y-4">
-                {r.faq.map((f) => (
-                  <div key={f.q} className="doodle-card-soft p-5 bg-card">
-                    <div className="font-serif-d text-xl mb-1.5">{f.q}</div>
-                    <p className="text-foreground/75">{f.a}</p>
+              {r.faq && r.faq.length > 0 && (
+                <div className="pt-4">
+                  <h2 className="font-display text-3xl mb-4">FAQ</h2>
+                  <div className="space-y-4">
+                    {r.faq.map((f) => (
+                      <div key={f.q} className="doodle-card-soft p-5 bg-card">
+                        <div className="font-serif-d text-xl mb-1.5">{f.q}</div>
+                        <p className="text-foreground/75">{f.a}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              )}
+            </>
           )}
 
           <div className="doodle-card p-7 mt-8" style={{ background: "color-mix(in oklab, var(--secondary) 10%, white)" }}>
@@ -157,7 +269,6 @@ function ResourcePage() {
           </div>
         </article>
 
-        {/* Sidebar */}
         <aside className="hidden lg:block">
           <div className="sticky top-24 space-y-4 text-sm">
             <div className="font-display text-xl">More in {r.cat}</div>
