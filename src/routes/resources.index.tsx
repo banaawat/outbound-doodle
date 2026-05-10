@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import brewLogo from "@/assets/logo-brew.png";
-import { RESOURCES, CATS, CAT_COLOR, TAG_COLOR, type Cat } from "@/data/resources";
+import { CATS, CAT_COLOR, TAG_COLOR, type Cat } from "@/data/resources";
+import { useResources } from "@/lib/useResources";
 
 const RES_TITLE = "Free Cold Email Templates, ICP Frameworks & Outbound Playbooks | Banaawat";
 const RES_DESC = "Free cold email templates, ICP frameworks, TAM spreadsheets, and deliverability checklists for B2B outbound. Built from real campaigns for Indian SaaS companies.";
