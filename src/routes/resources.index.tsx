@@ -43,6 +43,7 @@ const POPULAR_TOPICS = [
 function Resources() {
   const [cat, setCat] = useState<"All" | Cat>("All");
   const [q, setQ] = useState("");
+  const { resources: RESOURCES, popularSearches, loading } = useResources();
 
   const filtered = useMemo(() => {
     return RESOURCES.filter((r) => {
@@ -50,9 +51,9 @@ function Resources() {
       if (q && !(r.title + r.desc).toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
-  }, [cat, q]);
+  }, [cat, q, RESOURCES]);
 
-  const featured = RESOURCES.find((r) => r.featured)!;
+  const featured = RESOURCES.find((r) => r.featured) ?? RESOURCES[0];
   const grid = filtered.filter((r) => !r.featured);
 
   return (
