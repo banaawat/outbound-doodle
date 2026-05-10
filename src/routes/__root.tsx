@@ -49,6 +49,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script dangerouslySetInnerHTML={{ __html: `function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"69e912c31c8eaa001d9705b2"})},document.head.appendChild(o)}initApollo();` }} />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-78TPP1B4ET" />
         <script
           dangerouslySetInnerHTML={{
