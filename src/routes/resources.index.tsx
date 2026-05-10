@@ -270,13 +270,13 @@ function Resources() {
       <section className="max-w-6xl mx-auto px-5 sm:px-8 pb-14">
         <h2 className="font-display text-3xl mb-4">Popular searches</h2>
         <div className="flex flex-wrap gap-2">
-          {POPULAR_TOPICS.map((t) => (
+          {popularSearches.map((t) => (
             <button
-              key={t}
-              onClick={() => setQ(t)}
+              key={(t.id ?? t.label) as React.Key}
+              onClick={() => setQ(t.query ?? t.label)}
               className="pill bg-card hover:-translate-y-0.5 transition-transform"
             >
-              {t}
+              {t.label}
             </button>
           ))}
         </div>
