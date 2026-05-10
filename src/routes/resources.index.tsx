@@ -200,7 +200,24 @@ function Resources() {
           )}
         </div>
 
-        {grid.length === 0 ? (
+        {loading ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="doodle-card p-5 flex flex-col animate-pulse"
+                style={{ background: "color-mix(in oklab, var(--accent) 14%, white)", minHeight: 220 }}
+              >
+                <div className="h-4 w-20 rounded bg-foreground/10 mb-4" />
+                <div className="h-6 w-3/4 rounded bg-foreground/10 mb-2" />
+                <div className="h-6 w-2/3 rounded bg-foreground/10 mb-4" />
+                <div className="h-3 w-full rounded bg-foreground/10 mb-1.5" />
+                <div className="h-3 w-5/6 rounded bg-foreground/10 mb-1.5" />
+                <div className="h-3 w-4/6 rounded bg-foreground/10" />
+              </div>
+            ))}
+          </div>
+        ) : grid.length === 0 ? (
           <div className="doodle-card-soft p-10 text-center bg-card">
             <p className="font-display text-2xl mb-2">Nothing matches that yet.</p>
             <p className="text-muted-foreground">Try a different keyword or category.</p>
@@ -209,7 +226,7 @@ function Resources() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {grid.map((r) => (
               <Link
-                key={r.title}
+                key={r.slug}
                 to="/resources/$slug"
                 params={{ slug: r.slug }}
                 className="doodle-card p-5 flex flex-col bg-card group"
@@ -218,7 +235,7 @@ function Resources() {
                   <span
                     className="text-[0.65rem] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
                     style={{
-                      background: CAT_COLOR[r.cat],
+                      background: CAT_COLOR[r.cat as Cat],
                       color: r.cat === "Tools" ? "var(--ink)" : "white",
                     }}
                   >
@@ -227,7 +244,7 @@ function Resources() {
                   {r.tag && (
                     <span
                       className="text-[0.65rem] font-bold uppercase tracking-wider px-2 py-0.5 rounded border-2"
-                      style={{ borderColor: TAG_COLOR[r.tag], color: TAG_COLOR[r.tag] }}
+                      style={{ borderColor: TAG_COLOR[r.tag as NonNullable<typeof r.tag>], color: TAG_COLOR[r.tag as NonNullable<typeof r.tag>] }}
                     >
                       {r.tag}
                     </span>
