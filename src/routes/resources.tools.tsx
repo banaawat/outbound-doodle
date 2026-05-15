@@ -325,21 +325,65 @@ function ToolForm({ toolKey, toolName }: { toolKey: ToolKey; toolName: string })
         </Field>
       )}
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           onClick={onGenerate}
           disabled={loading}
-          className="btn-doodle btn-primary font-sans font-bold disabled:opacity-60"
+          className="btn-doodle btn-primary font-sans font-bold disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {loading ? "Thinking…" : "Generate →"}
+          {loading ? (
+            <>
+              <span className="inline-block h-3 w-3 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+              Generating…
+            </>
+          ) : (
+            <>Generate →</>
+          )}
         </button>
-        {err && <span className="text-sm text-destructive">{err}</span>}
+        {err?.kind === "request" && lastPrompt && !loading && (
+          <button
+            onClick={onRetry}
+            className="btn-doodle font-sans font-semibold"
+            type="button"
+          >
+            ↻ Retry
+          </button>
+        )}
       </div>
+
+      {err && (
+        <div
+          role="alert"
+          className="mt-4 rounded-md border-2 border-dashed border-destructive/60 bg-[color-mix(in_oklab,var(--destructive)_8%,white)] p-4"
+        >
+          <div className="flex items-start gap-2">
+            <span aria-hidden className="text-destructive font-bold">⚠</span>
+            <div className="text-sm">
+              <p className="font-semibold text-destructive">
+                {err.kind === "validation" ? "Missing input" : `${toolName} failed`}
+              </p>
+              <p className="mt-0.5 text-foreground/80">{err.message}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {(loading || output) && (
         <div className="mt-4 rounded-md border-2 border-dashed border-foreground/40 bg-white p-5">
           {loading ? (
-            <p className="text-foreground/60 font-mono text-sm">Thinking…</p>
+            <div aria-live="polite" aria-busy="true" className="space-y-2.5">
+              <p className="text-foreground/70 font-sans text-sm font-semibold flex items-center gap-2">
+                <span className="inline-block h-2 w-2 rounded-full bg-primary animate-pulse" />
+                {toolName} is thinking…
+              </p>
+              <div className="space-y-2 pt-2">
+                <div className="h-3 rounded bg-foreground/10 animate-pulse w-11/12" />
+                <div className="h-3 rounded bg-foreground/10 animate-pulse w-9/12" />
+                <div className="h-3 rounded bg-foreground/10 animate-pulse w-10/12" />
+                <div className="h-3 rounded bg-foreground/10 animate-pulse w-7/12" />
+                <div className="h-3 rounded bg-foreground/10 animate-pulse w-8/12" />
+              </div>
+            </div>
           ) : (
             <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed text-foreground">
               {output}
