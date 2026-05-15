@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
+import { Route as ResourcesToolsRouteImport } from './routes/resources.tools'
 import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
 
 const ServicesRoute = ServicesRouteImport.update({
@@ -47,6 +48,11 @@ const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
   path: '/resources/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesToolsRoute = ResourcesToolsRouteImport.update({
+  id: '/resources/tools',
+  path: '/resources/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
   id: '/resources/$slug',
   path: '/resources/$slug',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/proof': typeof ProofRoute
   '/services': typeof ServicesRoute
   '/resources/$slug': typeof ResourcesSlugRoute
+  '/resources/tools': typeof ResourcesToolsRoute
   '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/proof': typeof ProofRoute
   '/services': typeof ServicesRoute
   '/resources/$slug': typeof ResourcesSlugRoute
+  '/resources/tools': typeof ResourcesToolsRoute
   '/resources': typeof ResourcesIndexRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/proof': typeof ProofRoute
   '/services': typeof ServicesRoute
   '/resources/$slug': typeof ResourcesSlugRoute
+  '/resources/tools': typeof ResourcesToolsRoute
   '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/proof'
     | '/services'
     | '/resources/$slug'
+    | '/resources/tools'
     | '/resources/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/proof'
     | '/services'
     | '/resources/$slug'
+    | '/resources/tools'
     | '/resources'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/proof'
     | '/services'
     | '/resources/$slug'
+    | '/resources/tools'
     | '/resources/'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   ProofRoute: typeof ProofRoute
   ServicesRoute: typeof ServicesRoute
   ResourcesSlugRoute: typeof ResourcesSlugRoute
+  ResourcesToolsRoute: typeof ResourcesToolsRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
 }
 
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/tools': {
+      id: '/resources/tools'
+      path: '/resources/tools'
+      fullPath: '/resources/tools'
+      preLoaderRoute: typeof ResourcesToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/$slug': {
       id: '/resources/$slug'
       path: '/resources/$slug'
@@ -182,8 +202,18 @@ const rootRouteChildren: RootRouteChildren = {
   ProofRoute: ProofRoute,
   ServicesRoute: ServicesRoute,
   ResourcesSlugRoute: ResourcesSlugRoute,
+  ResourcesToolsRoute: ResourcesToolsRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
