@@ -64,7 +64,7 @@ function ToolsPage() {
             tool={t}
             isOpen={open === t.key}
             onToggle={() => toggle(t.key)}
-          />
+          ></ToolCard>
         ))}
       </section>
 
