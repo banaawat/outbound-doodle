@@ -115,7 +115,7 @@ function ToolCard({
 
       {isOpen && (
         <div className="border-t-2 border-dashed border-foreground/30 p-6 bg-[color-mix(in_oklab,var(--accent)_7%,white)]">
-          <ToolForm toolKey={tool.key} />
+          <ToolForm toolKey={tool.key} toolName={tool.name} />
           <p className="mt-6 text-xs text-foreground/50">
             Powered by Claude AI · Built by Banaawat
           </p>
@@ -125,11 +125,35 @@ function ToolCard({
   );
 }
 
-function ToolForm({ toolKey }: { toolKey: ToolKey }) {
+type ErrKind = "validation" | "request";
+type ToolErr = { kind: ErrKind; message: string };
+
+function classifyError(e: any): ToolErr {
+  const raw = (e?.message || "").toString();
+  // Network / fetch failures
+  if (/Failed to fetch|NetworkError|ECONN|ETIMEDOUT/i.test(raw)) {
+    return { kind: "request", message: "Network problem reaching the AI service. Check your connection and retry." };
+  }
+  // Rate limits
+  if (/429|rate.?limit/i.test(raw)) {
+    return { kind: "request", message: "Rate limit hit. Wait a few seconds and retry." };
+  }
+  // Gateway / upstream
+  if (/AI gateway|502|503|504|upstream|timeout/i.test(raw)) {
+    return { kind: "request", message: "The AI service is temporarily unavailable. Retry in a moment." };
+  }
+  if (/AI not configured/i.test(raw)) {
+    return { kind: "request", message: "AI is not configured on the server. Contact support." };
+  }
+  return { kind: "request", message: raw || "Something went wrong. Retry." };
+}
+
+function ToolForm({ toolKey, toolName }: { toolKey: ToolKey; toolName: string }) {
   const ai = useServerFn(generateAi);
   const [loading, setLoading] = useState(false);
   const [output, setOutput] = useState("");
-  const [err, setErr] = useState("");
+  const [err, setErr] = useState<ToolErr | null>(null);
+  const [lastPrompt, setLastPrompt] = useState<string | null>(null);
 
   // shared state bag (each tool reads what it needs)
   const [s, setS] = useState<Record<string, string>>({});
@@ -169,13 +193,8 @@ function ToolForm({ toolKey }: { toolKey: ToolKey }) {
     return null;
   };
 
-  const onGenerate = async () => {
-    const prompt = buildPrompt();
-    if (!prompt) {
-      setErr("Please fill in all fields above.");
-      return;
-    }
-    setErr("");
+  const runPrompt = async (prompt: string) => {
+    setErr(null);
     setOutput("");
     setLoading(true);
     try {
@@ -183,10 +202,28 @@ function ToolForm({ toolKey }: { toolKey: ToolKey }) {
       const res = await ai({ data: { prompt } });
       setOutput(res.text || "(Empty response)");
     } catch (e: any) {
-      setErr(e?.message || "Something went wrong. Try again.");
+      console.error(`[${toolName}] AI request failed:`, e);
+      setErr(classifyError(e));
     } finally {
       setLoading(false);
     }
+  };
+
+  const onGenerate = async () => {
+    const prompt = buildPrompt();
+    if (!prompt) {
+      setErr({
+        kind: "validation",
+        message: "Please fill in all fields above before generating.",
+      });
+      return;
+    }
+    setLastPrompt(prompt);
+    await runPrompt(prompt);
+  };
+
+  const onRetry = () => {
+    if (lastPrompt) void runPrompt(lastPrompt);
   };
 
   return (
